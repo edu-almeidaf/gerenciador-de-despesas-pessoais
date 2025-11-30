@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <title>Dashboard - Minhas Finanças</title>
+  <script type="module" crossorigin src="/gerenciador-de-despesas-pessoais/assets/main-D7c_SVBx.js"></script>
+  <link rel="stylesheet" crossorigin href="/gerenciador-de-despesas-pessoais/assets/main-DVH-w6iX.css">
+</head>
+<body class="min-h-screen bg-zinc-50">
+  <div class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="flex justify-between items-center px-4 pt-4 pb-2 md:border-b md:border-zinc-200 md:px-10 md:py-3">
+      <!-- Mobile: Avatar + Logo -->
+      <div class="w-12 h-12 bg-zinc-200 rounded-2xl flex items-center justify-center md:hidden" aria-label="Avatar do usuário">
+        <div class="w-8 h-8 bg-zinc-300 rounded-lg"></div>
+      </div>
+      <div class="flex-1 flex justify-center items-center pr-12 md:pr-0 md:flex-none md:justify-start">
+        <div class="flex items-center gap-2 md:gap-4">
+          <svg width="14" height="25" viewBox="0 0 14 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="md:w-4 md:h-4" aria-hidden="true">
+            <path d="M0 0H14V25H0V0Z" fill="black"/>
+          </svg>
+          <h1 class="text-lg font-bold text-zinc-950">Minhas Finanças</h1>
+        </div>
+      </div>
+      
+      <!-- Web: Navigation -->
+      <nav class="hidden md:flex items-center gap-9" aria-label="Navegação principal">
+        <a href="./dashboard.html" class="text-sm font-medium text-zinc-950">Dashboard</a>
+        <a href="./todas-transacoes.html" class="text-sm font-medium text-zinc-950">Transações</a>
+        <div class="w-10 h-10 bg-zinc-200 rounded-full" aria-label="Perfil do usuário"></div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 px-4 py-5 md:flex md:justify-center md:px-40 md:py-5 md:gap-1">
+      <!-- Left Column -->
+      <div class="flex-1 md:max-w-4xl">
+        <!-- Greeting -->
+        <section class="mb-3 md:px-4 md:py-4">
+          <h2 class="text-xl md:text-3xl font-bold text-zinc-950">Olá, Ricardo!</h2>
+        </section>
+
+        <!-- Cards Row -->
+        <section class="space-y-4 mb-4 md:space-y-0 md:px-4 md:py-4 md:flex md:gap-4 md:flex-wrap" aria-label="Resumo financeiro">
+          <!-- Saldo Atual -->
+          <article class="bg-white md:bg-zinc-200 rounded-lg p-4 flex justify-between items-start md:flex-1 md:min-w-[200px] md:flex-col md:gap-2 md:p-6">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-normal text-amber-900 md:text-zinc-950 md:font-medium">Saldo Atual</p>
+              <p class="text-base md:text-2xl font-bold text-zinc-950">R$ 12.345,67</p>
+            </div>
+            <div class="w-16 h-16 bg-zinc-200 rounded-lg md:hidden" aria-hidden="true"></div>
+          </article>
+
+          <!-- Receitas do Mês -->
+          <article class="bg-white md:bg-zinc-200 rounded-lg p-4 flex justify-between items-start md:flex-1 md:min-w-[200px] md:flex-col md:gap-2 md:p-6">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-normal text-amber-900 md:text-zinc-950 md:font-medium">Receitas do Mês</p>
+              <p class="text-base md:text-2xl font-bold text-zinc-950">R$ 5.678,90</p>
+            </div>
+            <div class="w-16 h-16 bg-zinc-200 rounded-lg md:hidden" aria-hidden="true"></div>
+          </article>
+
+          <!-- Despesas do Mês -->
+          <article class="bg-white md:bg-zinc-200 rounded-lg p-4 flex justify-between items-start md:flex-1 md:min-w-[200px] md:flex-col md:gap-2 md:p-6">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-normal text-amber-900 md:text-zinc-950 md:font-medium">Despesas do Mês</p>
+              <p class="text-base md:text-2xl font-bold text-zinc-950">R$ 3.456,78</p>
+            </div>
+            <div class="w-16 h-16 bg-zinc-200 rounded-lg md:hidden" aria-hidden="true"></div>
+          </article>
+        </section>
+
+        <!-- Últimas Transações -->
+        <section class="mb-3 md:px-4 md:py-5 md:pb-3">
+          <h3 class="text-xl font-bold text-zinc-950">Últimas 5 Transações</h3>
+        </section>
+
+        <!-- Transaction List / Table -->
+        <section class="space-y-2 mb-4 md:space-y-0 md:px-4 md:py-3" aria-label="Últimas transações">
+          <!-- Mobile: List -->
+          <ul class="md:hidden space-y-2" role="list">
+            <li class="flex justify-between items-center px-4 py-2">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Restaurante</p>
+                <p class="text-sm font-normal text-amber-900">Alimentação</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">- R$ 123,45</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Uber</p>
+                <p class="text-sm font-normal text-amber-900">Transporte</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">- R$ 45,67</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Empresa</p>
+                <p class="text-sm font-normal text-amber-900">Salário</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">+ R$ 5.000,00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Cinema</p>
+                <p class="text-sm font-normal text-amber-900">Lazer</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">- R$ 67,89</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Supermercado</p>
+                <p class="text-sm font-normal text-amber-900">Compras</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">- R$ 234,56</p>
+            </li>
+          </ul>
+
+          <!-- Web: Table -->
+          <div class="hidden md:block bg-white border border-zinc-50 rounded-lg overflow-hidden">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-zinc-50">
+                  <th class="px-4 py-3 text-left">
+                    <span class="text-sm font-medium text-zinc-950">Descrição</span>
+                  </th>
+                  <th class="px-4 py-3 text-right">
+                    <span class="text-sm font-medium text-zinc-950">Valor</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2">
+                    <p class="text-sm font-normal text-zinc-950">Compra de Supermercado</p>
+                  </td>
+                  <td class="px-4 py-2 text-right">
+                    <p class="text-sm font-normal text-amber-900">R$ -250,00</p>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2">
+                    <p class="text-sm font-normal text-zinc-950">Salário</p>
+                  </td>
+                  <td class="px-4 py-2 text-right">
+                    <p class="text-sm font-normal text-amber-900">R$ 5.000,00</p>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2">
+                    <p class="text-sm font-normal text-zinc-950">Conta de Luz</p>
+                  </td>
+                  <td class="px-4 py-2 text-right">
+                    <p class="text-sm font-normal text-amber-900">R$ -150,00</p>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2">
+                    <p class="text-sm font-normal text-zinc-950">Restaurante</p>
+                  </td>
+                  <td class="px-4 py-2 text-right">
+                    <p class="text-sm font-normal text-amber-900">R$ -100,00</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2">
+                    <p class="text-sm font-normal text-zinc-950">Transferência</p>
+                  </td>
+                  <td class="px-4 py-2 text-right">
+                    <p class="text-sm font-normal text-amber-900">R$ 500,00</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Ver Todas as Transações Link -->
+        <section class="text-center mb-4 md:hidden">
+          <a href="./todas-transacoes.html" class="text-sm font-bold text-red-500">Ver Todas as Transações</a>
+        </section>
+
+        <!-- Currency Cards -->
+        <section class="space-y-4 md:hidden" aria-label="Cotações de moedas">
+          <article class="bg-white rounded-lg p-4 flex justify-between items-start">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-normal text-amber-900">USD -> BRL</p>
+              <p class="text-base font-bold text-zinc-950">R$ 5,50</p>
+            </div>
+            <div class="w-16 h-16 bg-zinc-200 rounded-lg" aria-hidden="true"></div>
+          </article>
+          <article class="bg-white rounded-lg p-4 flex justify-between items-start">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-normal text-amber-900">EUR -> BRL</p>
+              <p class="text-base font-bold text-zinc-950">R$ 6,00</p>
+            </div>
+            <div class="w-16 h-16 bg-zinc-200 rounded-lg" aria-hidden="true"></div>
+          </article>
+        </section>
+      </div>
+
+      <!-- Right Column - Currency Cards (Web) -->
+      <aside class="hidden md:flex md:flex-col md:gap-4 md:px-4 md:py-4 md:w-80" aria-label="Cotações de moedas">
+        <article class="bg-zinc-200 rounded-lg p-4 flex flex-col gap-1">
+          <p class="text-base font-bold text-zinc-950">USD -> BRL</p>
+          <p class="text-sm font-normal text-amber-900">R$ 4,95</p>
+          <div class="w-full h-16 bg-zinc-300 rounded-lg mt-2" aria-hidden="true"></div>
+        </article>
+        <article class="bg-zinc-200 rounded-lg p-4 flex flex-col gap-1">
+          <p class="text-base font-bold text-zinc-950">EUR -> BRL</p>
+          <p class="text-sm font-normal text-amber-900">R$ 5,35</p>
+          <div class="w-full h-16 bg-zinc-300 rounded-lg mt-2" aria-hidden="true"></div>
+        </article>
+      </aside>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="border-t border-zinc-50 px-4 py-2 md:hidden" aria-label="Navegação inferior">
+      <ul class="flex justify-between items-end gap-2" role="list">
+        <li class="flex flex-col items-center gap-1">
+          <div class="w-8 h-8 flex items-center justify-center" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21H9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-zinc-950">Dashboard</span>
+        </li>
+        <li>
+          <a href="./adicionar-transacao.html" class="flex flex-col items-center gap-1">
+            <div class="w-8 h-8 flex items-center justify-center" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="text-xs font-medium text-amber-900">Adicionar Transação</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</body>
+</html>

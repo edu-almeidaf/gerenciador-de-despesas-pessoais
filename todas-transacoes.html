@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <title>Todas as Transações - Minhas Finanças</title>
+  <script type="module" crossorigin src="/gerenciador-de-despesas-pessoais/assets/main-D7c_SVBx.js"></script>
+  <link rel="stylesheet" crossorigin href="/gerenciador-de-despesas-pessoais/assets/main-DVH-w6iX.css">
+</head>
+<body class="min-h-screen bg-zinc-50">
+  <div class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="flex justify-center items-center px-4 pt-4 pb-2 md:border-b md:border-zinc-200 md:px-10 md:py-3 md:justify-between">
+      <!-- Mobile: Title only -->
+      <h1 class="text-lg font-bold text-zinc-950 md:hidden">Todas as transações</h1>
+      
+      <!-- Web: Logo + Navigation -->
+      <div class="hidden md:flex items-center gap-4">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M0 0H16V16H0V0Z" fill="black"/>
+        </svg>
+        <h1 class="text-lg font-bold text-zinc-950">Minhas Finanças</h1>
+      </div>
+      <nav class="hidden md:flex items-center gap-9" aria-label="Navegação principal">
+        <a href="./dashboard.html" class="text-sm font-medium text-zinc-950">Dashboard</a>
+        <a href="./todas-transacoes.html" class="text-sm font-medium text-zinc-950">Transações</a>
+        <div class="w-10 h-10 bg-zinc-200 rounded-full" aria-label="Perfil do usuário"></div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 px-4 py-4 md:flex md:justify-center md:px-40 md:py-5">
+      <div class="w-full md:max-w-6xl md:py-5">
+        <!-- Header Section -->
+        <section class="mb-2 md:px-4 md:py-4 md:flex md:justify-between md:items-center md:flex-wrap md:gap-3">
+          <h2 class="text-lg md:text-3xl font-bold text-zinc-950">Todas as transações</h2>
+          <a href="./adicionar-transacao.html" class="hidden md:block bg-zinc-200 text-zinc-950 text-sm font-medium py-2 px-4 rounded-lg hover:bg-zinc-300 transition-colors h-8 flex items-center">
+            Nova Transação
+          </a>
+        </section>
+
+        <!-- Filters (Web only) -->
+        <section class="hidden md:block px-4 py-3 space-y-3" aria-label="Filtros de busca">
+          <!-- Search -->
+          <form role="search" aria-label="Buscar transações">
+            <label for="busca" class="sr-only">Buscar transação por descrição</label>
+            <div class="flex border border-zinc-950 rounded-lg overflow-hidden h-12">
+              <div class="px-4 flex items-center bg-zinc-50" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#7B3306" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <input 
+                id="busca"
+                name="busca"
+                type="search" 
+                placeholder="Descrição"
+                class="flex-1 px-4 py-2 bg-zinc-50 text-base font-normal text-amber-900 placeholder-amber-900 focus:outline-none"
+              />
+            </div>
+          </form>
+
+          <!-- Filter Buttons -->
+          <div class="flex gap-3">
+            <button type="button" class="bg-zinc-200 text-zinc-950 text-sm font-medium py-2 px-4 rounded-lg hover:bg-zinc-300 transition-colors h-8 flex items-center gap-2" aria-label="Filtrar por tipo">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Tipo
+            </button>
+            <button type="button" class="bg-zinc-200 text-zinc-950 text-sm font-medium py-2 px-4 rounded-lg hover:bg-zinc-300 transition-colors h-8 flex items-center gap-2" aria-label="Filtrar por data">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Data
+            </button>
+          </div>
+        </section>
+
+        <!-- Transaction List / Table -->
+        <section class="space-y-0 md:px-4 md:py-3" aria-label="Lista de transações">
+          <!-- Mobile: Simple List -->
+          <ul class="md:hidden space-y-0" role="list">
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Supermecado</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">-R$50.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Salário</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">+R$2,000.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Aluguel</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">-R$1,200.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Restaurante</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">-R$75.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Freelancer</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">+R$300.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Contas</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">-R$150.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Café</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">-R$10.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Salário</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">+R$500.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Roupas</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">-R$200.00</p>
+            </li>
+            <li class="flex justify-between items-center px-4 py-2 border-b border-rose-100">
+              <div class="flex flex-col">
+                <p class="text-base font-medium text-zinc-950">Investimentos</p>
+              </div>
+              <p class="text-base font-normal text-zinc-950">+R$25.00</p>
+            </li>
+          </ul>
+
+          <!-- Web: Full Table -->
+          <div class="hidden md:block bg-white border border-zinc-50 rounded-lg overflow-hidden">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-zinc-50">
+                  <th class="px-4 py-3 text-center">
+                    <span class="text-sm font-medium text-zinc-950">Descrição</span>
+                  </th>
+                  <th class="px-4 py-3 text-center">
+                    <span class="text-sm font-medium text-zinc-950">Valor</span>
+                  </th>
+                  <th class="px-4 py-3 text-center">
+                    <span class="text-sm font-medium text-zinc-950">Data</span>
+                  </th>
+                  <th class="px-4 py-3 text-center">
+                    <span class="text-sm font-medium text-zinc-950">Tipo</span>
+                  </th>
+                  <th class="px-4 py-3 text-center">
+                    <span class="text-sm font-medium text-amber-900">Ações</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Salário</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">+$3,500.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2024-01-15</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Receita</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Salário">Excluir</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Aluguel</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">-$1,200.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2024-01-10</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Despesa</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Aluguel">Excluir</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Supermercado</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">-$300.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2024-01-05</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Despesa</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Supermercado">Excluir</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Restaurante</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">-$50.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2024-01-03</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Despesa</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Restaurante">Excluir</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Transporte</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">-$100.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2024-01-02</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Despesa</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Transporte">Excluir</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Academia</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">-$40.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2024-01-01</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Despesa</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Academia">Excluir</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Freelance</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">+$500.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2023-12-28</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Receita</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Freelance">Excluir</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Presente</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">+$100.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2023-12-25</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Receita</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Presente">Excluir</button>
+                  </td>
+                </tr>
+                <tr class="border-b border-zinc-200">
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Café</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">-$10.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2023-12-20</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Despesa</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Café">Excluir</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-zinc-950">Cinema</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">-$20.00</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <p class="text-sm font-normal text-amber-900">2023-12-18</p>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <span class="inline-block bg-zinc-200 text-zinc-950 text-sm font-medium py-1 px-4 rounded-lg">Despesa</span>
+                  </td>
+                  <td class="px-4 py-2 text-center">
+                    <button type="button" class="text-sm font-bold text-amber-900" aria-label="Excluir transação Cinema">Excluir</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="border-t border-zinc-50 px-4 py-2 md:hidden" aria-label="Navegação inferior">
+      <ul class="flex justify-between items-end gap-2" role="list">
+        <li>
+          <a href="./dashboard.html" class="flex flex-col items-center gap-1">
+            <div class="w-8 h-8 flex items-center justify-center" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21H9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="text-xs font-medium text-amber-900">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="./adicionar-transacao.html" class="flex flex-col items-center gap-1">
+            <div class="w-8 h-8 flex items-center justify-center" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="text-xs font-medium text-amber-900">Adicionar Transação</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+</body>
+</html>
