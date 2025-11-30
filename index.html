@@ -3,12 +3,71 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="refresh" content="0; url=./login.html" />
-  <title>Minhas Finanças</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
+  
+  <title>Login - Minhas Finanças</title>
 </head>
-<body>
-  <main>
-    <p>Redirecionando para <a href="./login.html">Login</a>...</p>
+<body class="min-h-screen bg-zinc-50 font-poppins">
+  <main class="flex flex-col min-h-screen">
+    <section class="flex-1 flex flex-col justify-center items-center px-4 py-5 md:px-40">
+      <div class="w-full max-w-md md:max-w-4xl py-5">
+        <!-- Logo and Title (Mobile) -->
+        <header class="w-full flex justify-center items-center pt-4 pb-2 md:hidden">
+          <div class="flex items-center gap-2">
+            <svg width="14" height="25" viewBox="0 0 14 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M0 0H14V25H0V0Z" fill="black"/>
+            </svg>
+            <h1 class="text-lg font-bold text-zinc-950">Minhas Finanças</h1>
+          </div>
+        </header>
+
+        <!-- Welcome Text -->
+        <section class="w-full flex justify-center items-center px-4 pt-5 pb-2 md:pt-5 md:pb-3">
+          <h2 class="text-2xl md:text-3xl font-bold text-zinc-950 text-center">Bem vindo(a)</h2>
+        </section>
+
+        <!-- Form -->
+        <form class="w-full px-4 py-3" action="./dashboard.html" method="get">
+          <fieldset class="space-y-6 md:space-y-4">
+            <!-- Email Field -->
+            <div>
+              <label for="email" class="block text-base font-medium text-zinc-950 mb-2">Qual seu e-mail?</label>
+              <input 
+                id="email"
+                name="email"
+                type="email" 
+                placeholder="Digite seu e-mail"
+                required
+                class="w-full px-4 py-4 bg-zinc-50 border border-zinc-950 rounded-lg text-base font-normal text-amber-900 placeholder-amber-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
+            </div>
+
+            <!-- Password Field -->
+            <div>
+              <label for="password" class="block text-base font-medium text-zinc-950 mb-2">Qual sua senha?</label>
+              <input 
+                id="password"
+                name="password"
+                type="password" 
+                placeholder="Digite sua senha"
+                required
+                class="w-full px-4 py-4 bg-zinc-50 border border-zinc-950 rounded-lg text-base font-normal text-amber-900 placeholder-amber-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+              />
+            </div>
+          </fieldset>
+
+          <!-- Button -->
+          <div class="w-full md:flex md:justify-center md:mt-3">
+            <button type="submit" class="w-full md:w-36 md:h-10 bg-red-500 text-white text-base md:text-sm font-bold py-3 md:py-2.5 px-5 md:px-4 rounded-lg hover:bg-red-700 transition-colors">
+              Entrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
 
   <script type="module" src="./src/js/main.js"></script>
