@@ -18,23 +18,26 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 - Em breve
 
 ## Framework CSS
-**TailwindCSS**
+**TailwindCSS** (via CDN)
+**DaisyUI** (via CDN)
 
 ## Dependências JavaScript
-- **JQuery** - Para realizar animações.
-- **JSON Server** - Para simular uma API Rest.
+- **JQuery** - Para realizar animações (quando implementado).
+- **JSON Server** - Para simular uma API Rest (quando implementado).
+
+> **Nota:** TailwindCSS e DaisyUI são carregados via CDN, não sendo necessário instalação ou build.
 
 ## Checklist | Indicadores de Desempenho (ID) dos Resultados de Aprendizagem (RA)
 
 #### RA1 - Utilizar Frameworks CSS para estilização de elementos HTML e criação de layouts responsivos.
 - [x] ID0 - Prototipa interfaces adaptáveis para no mínimo os tamanhos de tela mobile e desktop, usando ferramentas de design como Figma, Quant UX ou Sketch.
-- [ ] ID01 - Implementa um layout responsivo de uma página web utilizando um Framework CSS, como Bootstrap, Materialize ou Tailwind (com DaisyUI), aproveitando as técnicas de Flexbox ou Grid oferecidas pelo próprio framework, garantindo que o layout se adapte adequadamente a diferentes tamanhos de tela e dispositivos.
-- [ ] ID 02 - Utiliza técnica de responsividade nativa de CSS, como Flexbox ou Grid Layout, para criar layouts responsivos e fluidos em diferentes resoluções de tela.
-- [ ] ID 03 - Utiliza componentes CSS (ex. card, button ou outros) e JavaScript (ex. modal, carrousel ou outro) oferecidos por um Framework CSS.
-- [ ] ID 04 - Implementa um layout fluido e responsivo utilizando unidades relativas (vw, vh, %, em ou rem) em vez de unidades fixas (px) em diferentes dispositivos e tamanhos de tela.
+- [x] ID01 - Implementa um layout responsivo de uma página web utilizando um Framework CSS, como Bootstrap, Materialize ou Tailwind (com DaisyUI), aproveitando as técnicas de Flexbox ou Grid oferecidas pelo próprio framework, garantindo que o layout se adapte adequadamente a diferentes tamanhos de tela e dispositivos.
+- [x] ID 02 - Utiliza técnica de responsividade nativa de CSS, como Flexbox ou Grid Layout, para criar layouts responsivos e fluidos em diferentes resoluções de tela.
+- [x] ID 03 - Utiliza componentes CSS (ex. card, button ou outros) e JavaScript (ex. modal, carrousel ou outro) oferecidos por um Framework CSS.
+- [x] ID 04 - Implementa um layout fluido e responsivo utilizando unidades relativas (vw, vh, %, em ou rem) em vez de unidades fixas (px) em diferentes dispositivos e tamanhos de tela.
 - [ ] ID 05 - Implementa animações em elementos da página, como fadeIn/fadeOut, slideIn/slideOut, utilizando CSS Animations ou bibliotecas de animação, como o Animate.css ou JQuery, para fornecer feedback visual ao usuário e criar uma experiência interativa.
 - ~[ ] ID 06 - Cria transições personalizadas entre diferentes estados da página ou elementos, como mudanças de layout, alterações de cor ou exibição/hide de elementos, usando CSS Transitions ou CSS Animation, para melhorar a usabilidade e a aparência da aplicação.~
-- [ ] ID 07 - Aplica um Design System consistente, definindo diretrizes de estilo, cores, tipografia e padrões de componentes que são seguidos em toda a aplicação, garantindo uma experiência de usuário uniforme e atraente.
+- [x] ID 07 - Aplica um Design System consistente, definindo diretrizes de estilo, cores, tipografia e padrões de componentes que são seguidos em toda a aplicação, garantindo uma experiência de usuário uniforme e atraente.
 - [ ] ID 08 - Implementa pré-processadores CSS, como o Sass, em conjunto com um Framework CSS ou de forma isolada, para organizar e modularizar o código CSS, aplicando variáveis, mixins e funções para facilitar a manutenção e escalabilidade dos estilos.
 - [ ] ID 09 - Aplica tipografia responsiva utilizando media queries ou a função clamp(), em conjunto com unidades relativas como rem, em ou vw, para ajustar o tamanho da fonte de acordo com diferentes tamanhos de tela.
 
@@ -45,12 +48,12 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 - [ ] ID 13 - Realiza a escrita e leitura de dados no Web Storage, permitindo a persistência de informações entre sessões de usuário e fornecendo uma maneira eficaz de armazenar dados localmente no navegador.
 
 #### RA3 - Aplicar ferramentas para otimização do processo de desenvolvimento web, incluindo Node.js, NPM e linters para garantir a qualidade do código, juntamento com boas práticas de versionamento e organização de projetos.
-- [ ] ID 14 - Configura adequadamente um ambiente de desenvolvimento usando Node.js e NPM para gerenciar pacotes e dependências do projeto, facilitando a instalação e o uso de bibliotecas e ferramentas de terceiros.
+- [x] ID 14 - Configura adequadamente um ambiente de desenvolvimento usando Node.js e NPM para gerenciar pacotes e dependências do projeto, facilitando a instalação e o uso de bibliotecas e ferramentas de terceiros.
 - [ ] ID 15 - Utiliza linters, como ESLint ou Stylelint, para analisar e corrigir automaticamente problemas de código, incluindo erros de sintaxe, estilo e boas práticas, garantindo a qualidade e consistência do código do projeto.
 - [ ] ID 16 - Adota boas práticas de versionamento utilizando sistemas como Git e GitHub, criando e gerenciando repositórios com branches adequados ou pelo menos o branch main.
 - ~[ ] ID 17 - Utiliza técnicas de minificação e otimização de recursos, como minificação de CSS e JavaScript e otimização de imagens, para melhorar o desempenho e o tempo de carregamento do site ou aplicação.~
-- [ ] ID 18 - Organiza o arquivo README.md conforme o template exigido na disciplina, contendo informações claras e estruturadas sobre o projeto, principalmente o checklist de tópicos devidamente preenchido.
-- [ ] ID 19 - Organiza os arquivos do projeto em uma estrutura coerente, lógica e modular, conforme projeto de exemplo, facilitando a localização, manutenção e escalabilidade.
+- [x] ID 18 - Organiza o arquivo README.md conforme o template exigido na disciplina, contendo informações claras e estruturadas sobre o projeto, principalmente o checklist de tópicos devidamente preenchido.
+- [x] ID 19 - Organiza os arquivos do projeto em uma estrutura coerente, lógica e modular, conforme projeto de exemplo, facilitando a localização, manutenção e escalabilidade.
 - ~[ ] ID 20 - Utiliza as metodologias BEM (Block Element Modifier) ou SMACSS (Scalable and Modular Architecture for CSS) para organizar e estruturar os estilos CSS de forma eficiente, garantindo a reutilização de estilos, a legibilidade do código e a manutenção sustentável do projeto.~
 
 #### RA4 - Aplicar bibliotecas de funções e componentes em JavaScript para aprimorar a interatividade de páginas web.
@@ -64,7 +67,61 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 - [ ] ID 26 - Realiza requisições assíncronas para uma API fake utilizando adequadamente conceitos como AJAX, Fetch API ou bibliotecas, para exibição dos dados na página web.
 
 ## Manual de execução
-- Em breve
+
+### Pré-requisitos
+- Node.js instalado (versão 14 ou superior)
+- NPM
+
+### Instalação
+
+1. Clone o repositório ou navegue até a pasta do projeto:
+```bash
+cd gerenciador-de-despesas-pessoais
+```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+### Executando o projeto
+
+O projeto utiliza **CDN para TailwindCSS e DaisyUI** e está configurado com **responsividade mobile-first**. Não é necessário build ou compilação.
+
+#### Usando Live Server (Recomendado)
+
+1. **VS Code:**
+   - Instale a extensão "Live Server"
+   - Clique com botão direito em `src/index.html`
+   - Selecione "Open with Live Server"
+
+2. **Outros editores:**
+   - Use qualquer extensão/plugin de Live Server disponível
+   - Ou abra `src/index.html` diretamente no navegador
+
+#### Abrir diretamente no navegador
+
+1. Abra `src/index.html` ou qualquer arquivo HTML da pasta `src/` diretamente no navegador
+2. O projeto se adapta automaticamente ao tamanho da tela (mobile/desktop)
+
+> **Nota:** As telas são totalmente responsivas e se adaptam automaticamente entre mobile e desktop usando TailwindCSS com abordagem mobile-first.
 
 ## Telas da aplicação
-- Em breve
+
+Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
+
+- [Login](src/login.html) - Tela de login responsiva
+- [Dashboard](src/dashboard.html) - Dashboard com cards e transações responsivo
+- [Adicionar Transação](src/adicionar-transacao.html) - Formulário para adicionar transação responsivo
+- [Todas as Transações](src/todas-transacoes.html) - Lista/tabela de todas as transações responsiva
+
+### Estrutura de arquivos
+
+```
+src/
+├── index.html              # Ponto de partida (redireciona para login)
+├── login.html              # Tela de login (mobile + web)
+├── dashboard.html          # Dashboard (mobile + web)
+├── adicionar-transacao.html # Adicionar transação (mobile + web)
+└── todas-transacoes.html   # Todas as transações (mobile + web)
+```

@@ -1,30 +1,19 @@
 {
   "name": "gerenciador-de-despesas-pessoais",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/index.html",
   "scripts": {
-    "dev": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css --watch",
-    "build": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/output.css --minify"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/edu-almeidaf/gerenciador-de-despesas-pessoais.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/edu-almeidaf/gerenciador-de-despesas-pessoais/issues"
-  },
-  "homepage": "https://github.com/edu-almeidaf/gerenciador-de-despesas-pessoais#readme",
-  "description": "",
-  "dependencies": {
-    "jquery": "^3.7.1",
-    "json-server": "^1.0.0-beta.3"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.1.13",
-    "daisyui": "^5.1.25",
-    "tailwindcss": "^4.1.13"
+    "daisyui": "^5.5.5",
+    "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.17",
+    "tailwindcss": "^4.1.17"
   }
 }

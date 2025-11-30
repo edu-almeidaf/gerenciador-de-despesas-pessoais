@@ -1,0 +1,11 @@
+/* Importa o Tailwind */
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+}
+
+:root {
+  font-family: var(--font-poppins);
+}
