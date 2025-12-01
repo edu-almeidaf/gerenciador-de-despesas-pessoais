@@ -1,11 +1,27 @@
-/* Importa o Tailwind */
 @import "tailwindcss";
 @plugin "daisyui";
 
 @theme {
   --font-poppins: "Poppins", sans-serif;
+  
+  --animate-fade-in-up: fadeInUp 0.5s ease-out forwards;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 :root {
   font-family: var(--font-poppins);
+}
+
+.animate-enter {
+  animation: var(--animate-fade-in-up);
 }
