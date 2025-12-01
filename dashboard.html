@@ -2,246 +2,197 @@
 <html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
   
   <title>Dashboard - Minhas Finanças</title>
-  <script type="module" crossorigin src="/gerenciador-de-despesas-pessoais/assets/main-D7c_SVBx.js"></script>
-  <link rel="stylesheet" crossorigin href="/gerenciador-de-despesas-pessoais/assets/main-DVH-w6iX.css">
+  <script type="module" crossorigin src="/gerenciador-de-despesas-pessoais/assets/main-CLVK5zTg.js"></script>
+  <link rel="stylesheet" crossorigin href="/gerenciador-de-despesas-pessoais/assets/main-0yJTIODX.css">
 </head>
-<body class="min-h-screen bg-zinc-50">
-  <div class="flex flex-col min-h-screen">
-    <!-- Header -->
-    <header class="flex justify-between items-center px-4 pt-4 pb-2 md:border-b md:border-zinc-200 md:px-10 md:py-3">
-      <!-- Mobile: Avatar + Logo -->
-      <div class="w-12 h-12 bg-zinc-200 rounded-2xl flex items-center justify-center md:hidden" aria-label="Avatar do usuário">
-        <div class="w-8 h-8 bg-zinc-300 rounded-lg"></div>
+<body class="min-h-screen bg-zinc-50 pb-14 md:pb-0 font-poppins">
+
+  <header class="navbar bg-base-100 px-4 md:px-10 border-b border-zinc-200 h-14 min-h-0 sticky top-0 z-40">
+      
+    <div class="navbar-start">
+      <div class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-zinc-950 shrink-0">
+          <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+        </svg>
+        <h1 class="text-base md:text-lg font-bold text-zinc-950 shrink-0">Minhas Finanças</h1>
       </div>
-      <div class="flex-1 flex justify-center items-center pr-12 md:pr-0 md:flex-none md:justify-start">
-        <div class="flex items-center gap-2 md:gap-4">
-          <svg width="14" height="25" viewBox="0 0 14 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="md:w-4 md:h-4" aria-hidden="true">
-            <path d="M0 0H14V25H0V0Z" fill="black"/>
-          </svg>
-          <h1 class="text-lg font-bold text-zinc-950">Minhas Finanças</h1>
+    </div>
+
+    <div class="navbar-center hidden md:flex">
+      <nav class="flex gap-6">
+        <a href="./dashboard.html" class="link link-hover text-sm font-medium text-zinc-950">Dashboard</a>
+        <a href="./todas-transacoes.html" class="link link-hover text-sm font-medium text-zinc-500 hover:text-zinc-950">Transações</a>
+      </nav>
+    </div>
+
+    <div class="navbar-end">
+      <div class="avatar placeholder">
+        <div class="bg-zinc-200 text-zinc-600 rounded-full w-9 h-9 md:w-10 md:h-10 grid place-items-center">
+          <span class="text-sm md:text-xl font-medium">R</span>
         </div>
       </div>
+    </div>
+
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-4 md:py-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+    
+    <div class="md:col-span-2 space-y-5 md:space-y-6">
       
-      <!-- Web: Navigation -->
-      <nav class="hidden md:flex items-center gap-9" aria-label="Navegação principal">
-        <a href="./dashboard.html" class="text-sm font-medium text-zinc-950">Dashboard</a>
-        <a href="./todas-transacoes.html" class="text-sm font-medium text-zinc-950">Transações</a>
-        <div class="w-10 h-10 bg-zinc-200 rounded-full" aria-label="Perfil do usuário"></div>
-      </nav>
-    </header>
+      <section>
+        <h2 class="text-xl md:text-3xl font-bold text-zinc-950">Olá, Ricardo!</h2>
+      </section>
 
-    <!-- Main Content -->
-    <main class="flex-1 px-4 py-5 md:flex md:justify-center md:px-40 md:py-5 md:gap-1">
-      <!-- Left Column -->
-      <div class="flex-1 md:max-w-4xl">
-        <!-- Greeting -->
-        <section class="mb-3 md:px-4 md:py-4">
-          <h2 class="text-xl md:text-3xl font-bold text-zinc-950">Olá, Ricardo!</h2>
-        </section>
-
-        <!-- Cards Row -->
-        <section class="space-y-4 mb-4 md:space-y-0 md:px-4 md:py-4 md:flex md:gap-4 md:flex-wrap" aria-label="Resumo financeiro">
-          <!-- Saldo Atual -->
-          <article class="bg-white md:bg-zinc-200 rounded-lg p-4 flex justify-between items-start md:flex-1 md:min-w-[200px] md:flex-col md:gap-2 md:p-6">
-            <div class="flex flex-col gap-1">
-              <p class="text-sm font-normal text-amber-900 md:text-zinc-950 md:font-medium">Saldo Atual</p>
-              <p class="text-base md:text-2xl font-bold text-zinc-950">R$ 12.345,67</p>
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4" aria-label="Resumo financeiro">
+          
+        <article class="card bg-white shadow-sm border border-zinc-100">
+          <div class="card-body p-4 lg:p-5">
+            <div class="flex justify-between items-center mb-1">
+              <p class="text-xs md:text-sm text-zinc-500 font-medium">Saldo Atual</p>
+              <div class="p-1.5 md:p-2 bg-zinc-100 rounded-lg shrink-0">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 text-zinc-950"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
             </div>
-            <div class="w-16 h-16 bg-zinc-200 rounded-lg md:hidden" aria-hidden="true"></div>
-          </article>
-
-          <!-- Receitas do Mês -->
-          <article class="bg-white md:bg-zinc-200 rounded-lg p-4 flex justify-between items-start md:flex-1 md:min-w-[200px] md:flex-col md:gap-2 md:p-6">
-            <div class="flex flex-col gap-1">
-              <p class="text-sm font-normal text-amber-900 md:text-zinc-950 md:font-medium">Receitas do Mês</p>
-              <p class="text-base md:text-2xl font-bold text-zinc-950">R$ 5.678,90</p>
-            </div>
-            <div class="w-16 h-16 bg-zinc-200 rounded-lg md:hidden" aria-hidden="true"></div>
-          </article>
-
-          <!-- Despesas do Mês -->
-          <article class="bg-white md:bg-zinc-200 rounded-lg p-4 flex justify-between items-start md:flex-1 md:min-w-[200px] md:flex-col md:gap-2 md:p-6">
-            <div class="flex flex-col gap-1">
-              <p class="text-sm font-normal text-amber-900 md:text-zinc-950 md:font-medium">Despesas do Mês</p>
-              <p class="text-base md:text-2xl font-bold text-zinc-950">R$ 3.456,78</p>
-            </div>
-            <div class="w-16 h-16 bg-zinc-200 rounded-lg md:hidden" aria-hidden="true"></div>
-          </article>
-        </section>
-
-        <!-- Últimas Transações -->
-        <section class="mb-3 md:px-4 md:py-5 md:pb-3">
-          <h3 class="text-xl font-bold text-zinc-950">Últimas 5 Transações</h3>
-        </section>
-
-        <!-- Transaction List / Table -->
-        <section class="space-y-2 mb-4 md:space-y-0 md:px-4 md:py-3" aria-label="Últimas transações">
-          <!-- Mobile: List -->
-          <ul class="md:hidden space-y-2" role="list">
-            <li class="flex justify-between items-center px-4 py-2">
-              <div class="flex flex-col">
-                <p class="text-base font-medium text-zinc-950">Restaurante</p>
-                <p class="text-sm font-normal text-amber-900">Alimentação</p>
-              </div>
-              <p class="text-base font-normal text-zinc-950">- R$ 123,45</p>
-            </li>
-            <li class="flex justify-between items-center px-4 py-2">
-              <div class="flex flex-col">
-                <p class="text-base font-medium text-zinc-950">Uber</p>
-                <p class="text-sm font-normal text-amber-900">Transporte</p>
-              </div>
-              <p class="text-base font-normal text-zinc-950">- R$ 45,67</p>
-            </li>
-            <li class="flex justify-between items-center px-4 py-2">
-              <div class="flex flex-col">
-                <p class="text-base font-medium text-zinc-950">Empresa</p>
-                <p class="text-sm font-normal text-amber-900">Salário</p>
-              </div>
-              <p class="text-base font-normal text-zinc-950">+ R$ 5.000,00</p>
-            </li>
-            <li class="flex justify-between items-center px-4 py-2">
-              <div class="flex flex-col">
-                <p class="text-base font-medium text-zinc-950">Cinema</p>
-                <p class="text-sm font-normal text-amber-900">Lazer</p>
-              </div>
-              <p class="text-base font-normal text-zinc-950">- R$ 67,89</p>
-            </li>
-            <li class="flex justify-between items-center px-4 py-2">
-              <div class="flex flex-col">
-                <p class="text-base font-medium text-zinc-950">Supermercado</p>
-                <p class="text-sm font-normal text-amber-900">Compras</p>
-              </div>
-              <p class="text-base font-normal text-zinc-950">- R$ 234,56</p>
-            </li>
-          </ul>
-
-          <!-- Web: Table -->
-          <div class="hidden md:block bg-white border border-zinc-50 rounded-lg overflow-hidden">
-            <table class="w-full">
-              <thead>
-                <tr class="border-b border-zinc-50">
-                  <th class="px-4 py-3 text-left">
-                    <span class="text-sm font-medium text-zinc-950">Descrição</span>
-                  </th>
-                  <th class="px-4 py-3 text-right">
-                    <span class="text-sm font-medium text-zinc-950">Valor</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="border-b border-zinc-200">
-                  <td class="px-4 py-2">
-                    <p class="text-sm font-normal text-zinc-950">Compra de Supermercado</p>
-                  </td>
-                  <td class="px-4 py-2 text-right">
-                    <p class="text-sm font-normal text-amber-900">R$ -250,00</p>
-                  </td>
-                </tr>
-                <tr class="border-b border-zinc-200">
-                  <td class="px-4 py-2">
-                    <p class="text-sm font-normal text-zinc-950">Salário</p>
-                  </td>
-                  <td class="px-4 py-2 text-right">
-                    <p class="text-sm font-normal text-amber-900">R$ 5.000,00</p>
-                  </td>
-                </tr>
-                <tr class="border-b border-zinc-200">
-                  <td class="px-4 py-2">
-                    <p class="text-sm font-normal text-zinc-950">Conta de Luz</p>
-                  </td>
-                  <td class="px-4 py-2 text-right">
-                    <p class="text-sm font-normal text-amber-900">R$ -150,00</p>
-                  </td>
-                </tr>
-                <tr class="border-b border-zinc-200">
-                  <td class="px-4 py-2">
-                    <p class="text-sm font-normal text-zinc-950">Restaurante</p>
-                  </td>
-                  <td class="px-4 py-2 text-right">
-                    <p class="text-sm font-normal text-amber-900">R$ -100,00</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2">
-                    <p class="text-sm font-normal text-zinc-950">Transferência</p>
-                  </td>
-                  <td class="px-4 py-2 text-right">
-                    <p class="text-sm font-normal text-amber-900">R$ 500,00</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <p class="text-xl md:text-2xl font-bold text-zinc-950 break-all">
+              R$ 12.345,67
+            </p>
           </div>
-        </section>
+        </article>
 
-        <!-- Ver Todas as Transações Link -->
-        <section class="text-center mb-4 md:hidden">
-          <a href="./todas-transacoes.html" class="text-sm font-bold text-red-500">Ver Todas as Transações</a>
-        </section>
+        <article class="card bg-white shadow-sm border border-zinc-100">
+          <div class="card-body p-4 lg:p-5">
+            <div class="flex justify-between items-center mb-1">
+              <p class="text-xs md:text-sm text-zinc-500 font-medium">Receitas</p>
+              <div class="p-1.5 md:p-2 bg-green-100 rounded-lg shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 text-green-600"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+              </div>
+            </div>
+            <p class="text-xl md:text-2xl font-bold text-zinc-950 break-all">
+              R$ 5.678,90
+            </p>
+          </div>
+        </article>
 
-        <!-- Currency Cards -->
-        <section class="space-y-4 md:hidden" aria-label="Cotações de moedas">
-          <article class="bg-white rounded-lg p-4 flex justify-between items-start">
-            <div class="flex flex-col gap-1">
-              <p class="text-sm font-normal text-amber-900">USD -> BRL</p>
-              <p class="text-base font-bold text-zinc-950">R$ 5,50</p>
+        <article class="card bg-white shadow-sm border border-zinc-100">
+          <div class="card-body p-4 lg:p-5">
+            <div class="flex justify-between items-center mb-1">
+              <p class="text-xs md:text-sm text-zinc-500 font-medium">Despesas</p>
+              <div class="p-1.5 md:p-2 bg-red-100 rounded-lg shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 text-red-600"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
+              </div>
             </div>
-            <div class="w-16 h-16 bg-zinc-200 rounded-lg" aria-hidden="true"></div>
-          </article>
-          <article class="bg-white rounded-lg p-4 flex justify-between items-start">
-            <div class="flex flex-col gap-1">
-              <p class="text-sm font-normal text-amber-900">EUR -> BRL</p>
-              <p class="text-base font-bold text-zinc-950">R$ 6,00</p>
-            </div>
-            <div class="w-16 h-16 bg-zinc-200 rounded-lg" aria-hidden="true"></div>
-          </article>
-        </section>
+            <p class="text-xl md:text-2xl font-bold text-zinc-950 break-all">
+              R$ 3.456,78
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-base md:text-lg font-bold text-zinc-950">Últimas Transações</h3>
+          <a href="./todas-transacoes.html" class="link link-hover text-xs md:text-sm text-red-500 md:hidden">Ver todas</a>
+        </div>
+
+        <div class="overflow-x-auto bg-white rounded-lg border border-zinc-200">
+          <table class="table table-sm md:table-md">
+            <thead class="bg-zinc-50 border-b border-zinc-100">
+              <tr>
+                <th class="text-zinc-950 font-medium text-xs md:text-sm">Descrição</th>
+                <th class="text-zinc-950 font-medium text-right text-xs md:text-sm">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover">
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium text-zinc-950 text-sm">Supermercado</span>
+                    <span class="text-xs text-zinc-500">Compras</span>
+                  </div>
+                </td>
+                <td class="text-right text-red-600 font-medium text-sm">- R$ 250,00</td>
+              </tr>
+              <tr class="hover">
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium text-zinc-950 text-sm">Empresa XYZ</span>
+                    <span class="text-xs text-zinc-500">Salário</span>
+                  </div>
+                </td>
+                <td class="text-right text-green-600 font-medium text-sm">+ R$ 5.000,00</td>
+              </tr>
+              <tr class="hover">
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium text-zinc-950 text-sm">Restaurante</span>
+                    <span class="text-xs text-zinc-500">Alimentação</span>
+                  </div>
+                </td>
+                <td class="text-right text-red-600 font-medium text-sm">- R$ 100,00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      
+      <section class="grid grid-cols-1 gap-3 md:hidden">
+        <div class="alert bg-white border border-zinc-200 shadow-sm flex justify-between py-3">
+          <div>
+            <h3 class="font-bold text-zinc-950 text-sm">USD -> BRL</h3>
+            <div class="text-xs text-zinc-500">Dólar Comercial</div>
+          </div>
+          <span class="font-mono text-base font-bold">R$ 5,50</span>
+        </div>
+        <div class="alert bg-white border border-zinc-200 shadow-sm flex justify-between py-3">
+          <div>
+            <h3 class="font-bold text-zinc-950 text-sm">EUR -> BRL</h3>
+            <div class="text-xs text-zinc-500">Euro Comercial</div>
+          </div>
+          <span class="font-mono text-base font-bold">R$ 6,00</span>
+        </div>
+      </section>
+    </div>
+
+    <aside class="hidden md:flex flex-col gap-4">
+      <div class="card bg-zinc-100 border border-zinc-200">
+        <div class="card-body p-5">
+          <h3 class="card-title text-base text-zinc-950">Cotações</h3>
+          
+          <div class="flex justify-between items-center py-2 border-b border-zinc-200">
+            <span class="text-sm text-zinc-600">USD</span>
+            <span class="font-bold text-zinc-950">R$ 4,95</span>
+          </div>
+          <div class="flex justify-between items-center py-2">
+            <span class="text-sm text-zinc-600">EUR</span>
+            <span class="font-bold text-zinc-950">R$ 5,35</span>
+          </div>
+          
+          <div class="h-20 bg-zinc-200 rounded mt-2 w-full"></div>
+        </div>
       </div>
+    </aside>
 
-      <!-- Right Column - Currency Cards (Web) -->
-      <aside class="hidden md:flex md:flex-col md:gap-4 md:px-4 md:py-4 md:w-80" aria-label="Cotações de moedas">
-        <article class="bg-zinc-200 rounded-lg p-4 flex flex-col gap-1">
-          <p class="text-base font-bold text-zinc-950">USD -> BRL</p>
-          <p class="text-sm font-normal text-amber-900">R$ 4,95</p>
-          <div class="w-full h-16 bg-zinc-300 rounded-lg mt-2" aria-hidden="true"></div>
-        </article>
-        <article class="bg-zinc-200 rounded-lg p-4 flex flex-col gap-1">
-          <p class="text-base font-bold text-zinc-950">EUR -> BRL</p>
-          <p class="text-sm font-normal text-amber-900">R$ 5,35</p>
-          <div class="w-full h-16 bg-zinc-300 rounded-lg mt-2" aria-hidden="true"></div>
-        </article>
-      </aside>
-    </main>
+  </main>
 
-    <!-- Bottom Navigation (Mobile) -->
-    <nav class="border-t border-zinc-50 px-4 py-2 md:hidden" aria-label="Navegação inferior">
-      <ul class="flex justify-between items-end gap-2" role="list">
-        <li class="flex flex-col items-center gap-1">
-          <div class="w-8 h-8 flex items-center justify-center" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21H9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <span class="text-xs font-medium text-zinc-950">Dashboard</span>
-        </li>
-        <li>
-          <a href="./adicionar-transacao.html" class="flex flex-col items-center gap-1">
-            <div class="w-8 h-8 flex items-center justify-center" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <span class="text-xs font-medium text-amber-900">Adicionar Transação</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+  <div class="dock dock-xs md:hidden fixed bottom-0 w-full bg-white border-t border-zinc-200 z-50">
+    
+    <a href="./dashboard.html" class="dock-item dock-active text-red-600">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+      <span class="dock-label text-[10px]">Dashboard</span>
+    </a>
+
+    <a href="./adicionar-transacao.html" class="dock-item text-zinc-500 hover:text-red-600">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+      <span class="dock-label text-[10px]">Adicionar</span>
+    </a>
+    
   </div>
 
 </body>
