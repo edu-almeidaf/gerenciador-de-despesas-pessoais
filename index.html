@@ -10,64 +10,56 @@
   
   <title>Login - Minhas Finanças</title>
 </head>
-<body class="min-h-screen bg-zinc-50 font-poppins">
-  <main class="flex flex-col min-h-screen">
-    <section class="flex-1 flex flex-col justify-center items-center px-4 py-5 md:px-40">
-      <div class="w-full max-w-md md:max-w-4xl py-5">
-        <!-- Logo and Title (Mobile) -->
-        <header class="w-full flex justify-center items-center pt-4 pb-2 md:hidden">
-          <div class="flex items-center gap-2">
-            <svg width="14" height="25" viewBox="0 0 14 25" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M0 0H14V25H0V0Z" fill="black"/>
-            </svg>
-            <h1 class="text-lg font-bold text-zinc-950">Minhas Finanças</h1>
-          </div>
-        </header>
+<body class="min-h-screen bg-zinc-50 grid place-items-center p-4">
+  <main class="w-full max-w-md space-y-8">
+    <header class="text-center space-y-2">
+      <div class="flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-dollar-sign-icon lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
 
-        <!-- Welcome Text -->
-        <section class="w-full flex justify-center items-center px-4 pt-5 pb-2 md:pt-5 md:pb-3">
-          <h2 class="text-2xl md:text-3xl font-bold text-zinc-950 text-center">Bem vindo(a)</h2>
-        </section>
-
-        <!-- Form -->
-        <form class="w-full px-4 py-3" action="./dashboard.html" method="get">
-          <fieldset class="space-y-6 md:space-y-4">
-            <!-- Email Field -->
-            <div>
-              <label for="email" class="block text-base font-medium text-zinc-950 mb-2">Qual seu e-mail?</label>
-              <input 
-                id="email"
-                name="email"
-                type="email" 
-                placeholder="Digite seu e-mail"
-                required
-                class="w-full px-4 py-4 bg-zinc-50 border border-zinc-950 rounded-lg text-base font-normal text-amber-900 placeholder-amber-900 focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </div>
-
-            <!-- Password Field -->
-            <div>
-              <label for="password" class="block text-base font-medium text-zinc-950 mb-2">Qual sua senha?</label>
-              <input 
-                id="password"
-                name="password"
-                type="password" 
-                placeholder="Digite sua senha"
-                required
-                class="w-full px-4 py-4 bg-zinc-50 border border-zinc-950 rounded-lg text-base font-normal text-amber-900 placeholder-amber-900 focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </div>
-          </fieldset>
-
-          <!-- Button -->
-          <div class="w-full md:flex md:justify-center md:mt-3">
-            <button type="submit" class="w-full md:w-36 md:h-10 bg-red-500 text-white text-base md:text-sm font-bold py-3 md:py-2.5 px-5 md:px-4 rounded-lg hover:bg-red-700 transition-colors">
-              Entrar
-            </button>
-          </div>
-        </form>
+        <h1 class="text-3xl font-bold text-zinc-950">Minhas Finanças</h1>
       </div>
-    </section>
+      
+      <p class="text-zinc-500">Bem-vindo(a) de volta!</p>
+    </header>
+
+    <form action="./dashboard.html" method="get" class="flex flex-col gap-4">
+      
+      <div class="form-control w-full">
+        <label class="label" for="email">
+          <span class="label-text text-base font-medium text-zinc-950">Qual seu e-mail?</span>
+        </label>
+        <input 
+          id="email" 
+          name="email" 
+          type="email" 
+          placeholder="Digite seu e-mail" 
+          class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
+          required 
+        />
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label" for="password">
+          <span class="label-text text-base font-medium text-zinc-950">Qual sua senha?</span>
+        </label>
+        <input 
+          id="password" 
+          name="password" 
+          type="password" 
+          placeholder="Digite sua senha" 
+          class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
+          required 
+        />
+        <label class="label">
+          <a href="#" class="label-text-alt link link-hover text-zinc-500">Esqueceu a senha?</a>
+        </label>
+      </div>
+
+      <button type="submit" class="btn bg-red-500 hover:bg-red-700 text-white border-none w-full md:text-base font-bold h-12">
+        Entrar
+      </button>
+
+    </form>
   </main>
 
   <script type="module" src="./src/js/main.js"></script>
