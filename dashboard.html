@@ -64,7 +64,7 @@
 
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4" aria-label="Resumo financeiro">
           
-        <article class="card bg-white shadow-sm border border-zinc-100">
+        <article class="card shadow-sm border border-zinc-100">
           <div class="card-body p-4 lg:p-5">
             <div class="flex justify-between items-center mb-1">
               <p class="text-xs md:text-sm text-zinc-500 font-medium">Saldo Atual</p>
@@ -72,8 +72,8 @@
                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 text-zinc-950"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
               </div>
             </div>
-            <p class="text-xl md:text-2xl font-bold text-zinc-950 break-all">
-              R$ 12.345,67
+            <p id="card-saldo" class="text-xl md:text-2xl font-bold text-zinc-950 break-all">
+              <span class="loading loading-dots loading-sm"></span>
             </p>
           </div>
         </article>
@@ -86,8 +86,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 text-green-600"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
               </div>
             </div>
-            <p class="text-xl md:text-2xl font-bold text-zinc-950 break-all">
-              R$ 5.678,90
+            <p id="card-receitas" class="text-xl md:text-2xl font-bold text-green-600 break-all">
+              <span class="loading loading-dots loading-sm"></span>
             </p>
           </div>
         </article>
@@ -100,8 +100,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5 text-red-600"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>
               </div>
             </div>
-            <p class="text-xl md:text-2xl font-bold text-zinc-950 break-all">
-              R$ 3.456,78
+            <p id="card-despesas" class="text-xl md:text-2xl font-bold text-red-600 break-all">
+              <span class="loading loading-dots loading-sm"></span>
             </p>
           </div>
         </article>
@@ -110,7 +110,10 @@
       <section>
         <div class="flex justify-between items-center mb-3">
           <h3 class="text-base md:text-lg font-bold text-zinc-950">Últimas Transações</h3>
-          <a href="./todas-transacoes.html" class="link link-hover text-xs md:text-sm text-red-500 md:hidden">Ver todas</a>
+          <a href="./todas-transacoes.html" class="link link-hover text-xs md:text-sm text-red-500 font-medium flex items-center gap-1">
+            Ver todas
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
         </div>
 
         <div class="overflow-x-auto bg-white rounded-lg border border-zinc-200">
@@ -121,33 +124,12 @@
                 <th class="text-zinc-950 font-medium text-right text-xs md:text-sm">Valor</th>
               </tr>
             </thead>
-            <tbody>
-              <tr class="hover">
-                <td>
-                  <div class="flex flex-col">
-                    <span class="font-medium text-zinc-950 text-sm">Supermercado</span>
-                    <span class="text-xs text-zinc-500">Compras</span>
-                  </div>
+            <tbody id="tabela-transacoes">
+              <tr>
+                <td colspan="2" class="text-center py-8">
+                  <span class="loading loading-spinner loading-md text-red-500"></span>
+                  <p class="text-zinc-500 text-sm mt-2">Carregando transações...</p>
                 </td>
-                <td class="text-right text-red-600 font-medium text-sm">- R$ 250,00</td>
-              </tr>
-              <tr class="hover">
-                <td>
-                  <div class="flex flex-col">
-                    <span class="font-medium text-zinc-950 text-sm">Empresa XYZ</span>
-                    <span class="text-xs text-zinc-500">Salário</span>
-                  </div>
-                </td>
-                <td class="text-right text-green-600 font-medium text-sm">+ R$ 5.000,00</td>
-              </tr>
-              <tr class="hover">
-                <td>
-                  <div class="flex flex-col">
-                    <span class="font-medium text-zinc-950 text-sm">Restaurante</span>
-                    <span class="text-xs text-zinc-500">Alimentação</span>
-                  </div>
-                </td>
-                <td class="text-right text-red-600 font-medium text-sm">- R$ 100,00</td>
               </tr>
             </tbody>
           </table>
@@ -155,19 +137,19 @@
       </section>
       
       <section class="grid grid-cols-1 gap-3 md:hidden">
-        <div class="alert bg-white border border-zinc-200 shadow-sm flex justify-between py-3">
+        <div class="alert bg-white border border-zinc-200 shadow-sm flex justify-between items-center py-3">
           <div>
-            <h3 class="font-bold text-zinc-950 text-sm">USD -> BRL</h3>
+            <h3 class="font-bold text-zinc-950 text-sm">USD → BRL</h3>
             <div class="text-xs text-zinc-500">Dólar Comercial</div>
           </div>
-          <span class="font-mono text-base font-bold">R$ 5,50</span>
+          <span id="cotacao-usd-mobile" class="font-mono text-base font-bold text-zinc-950">...</span>
         </div>
-        <div class="alert bg-white border border-zinc-200 shadow-sm flex justify-between py-3">
+        <div class="alert bg-white border border-zinc-200 shadow-sm flex justify-between items-center py-3">
           <div>
-            <h3 class="font-bold text-zinc-950 text-sm">EUR -> BRL</h3>
+            <h3 class="font-bold text-zinc-950 text-sm">EUR → BRL</h3>
             <div class="text-xs text-zinc-500">Euro Comercial</div>
           </div>
-          <span class="font-mono text-base font-bold">R$ 6,00</span>
+          <span id="cotacao-eur-mobile" class="font-mono text-base font-bold text-zinc-950">...</span>
         </div>
       </section>
     </div>
@@ -175,18 +157,46 @@
     <aside class="hidden md:flex flex-col gap-4">
       <div class="card bg-zinc-100 border border-zinc-200">
         <div class="card-body p-5">
-          <h3 class="card-title text-base text-zinc-950">Cotações</h3>
-          
-          <div class="flex justify-between items-center py-2 border-b border-zinc-200">
-            <span class="text-sm text-zinc-600">USD</span>
-            <span class="font-bold text-zinc-950">R$ 4,95</span>
-          </div>
-          <div class="flex justify-between items-center py-2">
-            <span class="text-sm text-zinc-600">EUR</span>
-            <span class="font-bold text-zinc-950">R$ 5,35</span>
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="card-title text-base text-zinc-950">Cotações</h3>
+            <span class="text-xs text-zinc-500">Tempo real</span>
           </div>
           
-          <div class="h-20 bg-zinc-200 rounded mt-2 w-full"></div>
+          <div class="flex justify-between items-center py-3 border-b border-zinc-200">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                <span class="text-xs font-bold text-green-700">$</span>
+              </div>
+              <div>
+                <span class="text-sm font-medium text-zinc-950">Dólar</span>
+                <p class="text-xs text-zinc-500">USD/BRL</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span id="cotacao-usd" class="font-bold text-zinc-950">...</span>
+              <p id="variacao-usd" class="text-xs flex items-center justify-end gap-0.5"></p>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center py-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <span class="text-xs font-bold text-blue-700">€</span>
+              </div>
+              <div>
+                <span class="text-sm font-medium text-zinc-950">Euro</span>
+                <p class="text-xs text-zinc-500">EUR/BRL</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span id="cotacao-eur" class="font-bold text-zinc-950">...</span>
+              <p id="variacao-eur" class="text-xs flex items-center justify-end gap-0.5"></p>
+            </div>
+          </div>
+          
+          <p class="text-[10px] text-zinc-400 text-center mt-3">
+            Fonte: AwesomeAPI
+          </p>
         </div>
       </div>
     </aside>
