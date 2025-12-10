@@ -27,6 +27,7 @@
     "@tailwindcss/vite": "^4.1.17",
     "cally": "^0.8.0",
     "jquery": "^3.7.1",
+    "jquery-mask-plugin": "^1.14.16",
     "tailwindcss": "^4.1.17"
   }
 }

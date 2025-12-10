@@ -94,6 +94,15 @@
       "valor": 800,
       "tipo": "receita",
       "data": "2025-12-08"
+    },
+    {
+      "usuarioId": 2,
+      "descricao": "Teste",
+      "categoria": "Alimentação",
+      "valor": 1231.23,
+      "tipo": "despesa",
+      "data": "2025-11-05",
+      "id": 10
     }
   ]
 }
