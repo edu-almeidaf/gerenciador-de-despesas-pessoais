@@ -7,17 +7,17 @@ const COTACAO_API = 'https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL';
 $(document).ready(function() {
   // Verifica autenticação - redireciona se não logado
   const usuario = Auth.verificarAutenticacao(true);
-  
+
   if (!usuario) {
     return; // Vai redirecionar
   }
 
   // Atualiza nome do usuário na saudação
   $('#usuario-nome').text(usuario.nome.split(' ')[0]);
-  
+
   // Atualiza email no dropdown
   $('#usuario-email').text(usuario.email);
-  
+
   // Atualiza iniciais do avatar
   const iniciais = usuario.nome
     .split(' ')
@@ -25,7 +25,7 @@ $(document).ready(function() {
     .slice(0, 2)
     .join('')
     .toUpperCase();
-  
+
   $('.avatar-inicial').text(iniciais);
 
   // Carrega dados do dashboard
@@ -35,10 +35,10 @@ $(document).ready(function() {
   // Handler de logout
   $('#btn-logout').on('click', function(e) {
     e.preventDefault();
-    
+
     // Animação de saída
     $('main').addClass('animate-exit');
-    
+
     setTimeout(function() {
       Auth.logout();
     }, 300);
@@ -55,30 +55,30 @@ function carregarTransacoes(usuarioId) {
     method: 'GET',
     dataType: 'json'
   })
-  .then(function(todasTransacoes) {
+    .then(function(todasTransacoes) {
     // Filtra transações do usuário (garante comparação numérica)
-    const transacoes = todasTransacoes.filter(t => 
-      Number(t.usuarioId) === Number(usuarioId)
-    );
-    
-    // Ordena por data (mais recente primeiro)
-    transacoes.sort((a, b) => new Date(b.data) - new Date(a.data));
-    
-    // Calcula totais
-    const totais = calcularTotais(transacoes);
-    
-    // Atualiza cards
-    atualizarCards(totais);
-    
-    // Renderiza últimas 10 transações
-    renderizarTransacoes(transacoes.slice(0, 10));
-    
-    // Animação de entrada dos cards
-    animarCards();
-  })
-  .catch(function(error) {
-    console.error('Erro ao carregar transações:', error);
-    $('#tabela-transacoes').html(`
+      const transacoes = todasTransacoes.filter(t =>
+        Number(t.usuarioId) === Number(usuarioId)
+      );
+
+      // Ordena por data (mais recente primeiro)
+      transacoes.sort((a, b) => new Date(b.data) - new Date(a.data));
+
+      // Calcula totais
+      const totais = calcularTotais(transacoes);
+
+      // Atualiza cards
+      atualizarCards(totais);
+
+      // Renderiza últimas 10 transações
+      renderizarTransacoes(transacoes.slice(0, 10));
+
+      // Animação de entrada dos cards
+      animarCards();
+    })
+    .catch(function(error) {
+      console.error('Erro ao carregar transações:', error);
+      $('#tabela-transacoes').html(`
       <tr>
         <td colspan="2" class="text-center text-zinc-500 py-8">
           <p>Erro ao carregar transações.</p>
@@ -86,7 +86,7 @@ function carregarTransacoes(usuarioId) {
         </td>
       </tr>
     `);
-  });
+    });
 }
 
 /**
@@ -98,13 +98,13 @@ function calcularTotais(transacoes) {
   const receitas = transacoes
     .filter(t => t.tipo === 'receita')
     .reduce((acc, t) => acc + t.valor, 0);
-    
+
   const despesas = transacoes
     .filter(t => t.tipo === 'despesa')
     .reduce((acc, t) => acc + t.valor, 0);
-    
+
   const saldo = receitas - despesas;
-  
+
   return { receitas, despesas, saldo };
 }
 
@@ -116,7 +116,7 @@ function atualizarCards(totais) {
   $('#card-saldo').text(formatarMoeda(totais.saldo));
   $('#card-receitas').text(formatarMoeda(totais.receitas));
   $('#card-despesas').text(formatarMoeda(totais.despesas));
-  
+
   // Muda cor do saldo se negativo
   if (totais.saldo < 0) {
     $('#card-saldo').addClass('text-red-600');
@@ -131,7 +131,7 @@ function atualizarCards(totais) {
  */
 function renderizarTransacoes(transacoes) {
   const $tbody = $('#tabela-transacoes');
-  
+
   if (transacoes.length === 0) {
     $tbody.html(`
       <tr>
@@ -145,12 +145,12 @@ function renderizarTransacoes(transacoes) {
     `);
     return;
   }
-  
+
   const html = transacoes.map(transacao => {
     const isReceita = transacao.tipo === 'receita';
     const valorClass = isReceita ? 'text-green-600' : 'text-red-600';
     const valorPrefixo = isReceita ? '+' : '-';
-    
+
     return `
       <tr class="hover">
         <td>
@@ -165,7 +165,7 @@ function renderizarTransacoes(transacoes) {
       </tr>
     `;
   }).join('');
-  
+
   $tbody.html(html);
 }
 
@@ -176,37 +176,37 @@ function carregarCotacoes() {
   // Mostra loading
   $('#cotacao-usd, #cotacao-eur').text('...');
   $('#cotacao-usd-mobile, #cotacao-eur-mobile').text('...');
-  
+
   $.ajax({
     url: COTACAO_API,
     method: 'GET',
     dataType: 'json',
     timeout: 10000
   })
-  .then(function(data) {
-    const usd = parseFloat(data.USDBRL.bid);
-    const eur = parseFloat(data.EURBRL.bid);
-    
-    // Atualiza desktop
-    $('#cotacao-usd').text(formatarMoeda(usd));
-    $('#cotacao-eur').text(formatarMoeda(eur));
-    
-    // Atualiza mobile
-    $('#cotacao-usd-mobile').text(formatarMoeda(usd));
-    $('#cotacao-eur-mobile').text(formatarMoeda(eur));
-    
-    // Atualiza variação (se disponível)
-    const variacaoUsd = parseFloat(data.USDBRL.pctChange);
-    const variacaoEur = parseFloat(data.EURBRL.pctChange);
-    
-    atualizarVariacao('#variacao-usd', variacaoUsd);
-    atualizarVariacao('#variacao-eur', variacaoEur);
-  })
-  .catch(function(error) {
-    console.error('Erro ao carregar cotações:', error);
-    $('#cotacao-usd, #cotacao-eur').text('--');
-    $('#cotacao-usd-mobile, #cotacao-eur-mobile').text('--');
-  });
+    .then(function(data) {
+      const usd = parseFloat(data.USDBRL.bid);
+      const eur = parseFloat(data.EURBRL.bid);
+
+      // Atualiza desktop
+      $('#cotacao-usd').text(formatarMoeda(usd));
+      $('#cotacao-eur').text(formatarMoeda(eur));
+
+      // Atualiza mobile
+      $('#cotacao-usd-mobile').text(formatarMoeda(usd));
+      $('#cotacao-eur-mobile').text(formatarMoeda(eur));
+
+      // Atualiza variação (se disponível)
+      const variacaoUsd = parseFloat(data.USDBRL.pctChange);
+      const variacaoEur = parseFloat(data.EURBRL.pctChange);
+
+      atualizarVariacao('#variacao-usd', variacaoUsd);
+      atualizarVariacao('#variacao-eur', variacaoEur);
+    })
+    .catch(function(error) {
+      console.error('Erro ao carregar cotações:', error);
+      $('#cotacao-usd, #cotacao-eur').text('--');
+      $('#cotacao-usd-mobile, #cotacao-eur-mobile').text('--');
+    });
 }
 
 /**
@@ -217,12 +217,12 @@ function carregarCotacoes() {
 function atualizarVariacao(selector, variacao) {
   const $el = $(selector);
   if (!$el.length) return;
-  
+
   const isPositivo = variacao >= 0;
-  const icon = isPositivo 
+  const icon = isPositivo
     ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>'
     : '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
-  
+
   $el
     .html(`${icon} ${Math.abs(variacao).toFixed(2)}%`)
     .removeClass('text-green-600')
@@ -252,7 +252,7 @@ function animarCards() {
       'opacity': '0',
       'transform': 'translateY(20px)'
     });
-    
+
     setTimeout(() => {
       $card.css({
         'transition': 'all 0.4s ease-out',

@@ -8,7 +8,7 @@ import { Auth } from './auth.js';
 $(document).ready(function() {
   // Verifica autenticação - redireciona se não logado
   const usuario = Auth.verificarAutenticacao(true);
-  
+
   if (!usuario) {
     return; // Vai redirecionar para login
   }
@@ -20,7 +20,7 @@ $(document).ready(function() {
     .slice(0, 2)
     .join('')
     .toUpperCase();
-  
+
   $('.avatar-inicial').text(iniciais);
 
   // Se houver dropdown de usuário, atualiza o email
@@ -31,10 +31,10 @@ $(document).ready(function() {
   // Handler de logout (se existir na página)
   $('#btn-logout').on('click', function(e) {
     e.preventDefault();
-    
+
     // Animação de saída
     $('main').addClass('animate-exit');
-    
+
     setTimeout(function() {
       Auth.logout();
     }, 300);

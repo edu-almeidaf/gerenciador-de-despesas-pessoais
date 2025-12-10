@@ -23,13 +23,13 @@ const Auth = {
       if (usuarios.length === 0) {
         throw new Error('Usuário não encontrado');
       }
-      
+
       const usuario = usuarios[0];
-      
+
       if (usuario.senha !== senha) {
         throw new Error('Senha incorreta');
       }
-      
+
       // Salva sessão no localStorage
       const sessao = {
         id: usuario.id,
@@ -37,9 +37,9 @@ const Auth = {
         email: usuario.email,
         loggedAt: new Date().toISOString()
       };
-      
+
       localStorage.setItem('usuario_sessao', JSON.stringify(sessao));
-      
+
       return usuario;
     });
   },
@@ -60,7 +60,7 @@ const Auth = {
       if (usuarios.length > 0) {
         throw new Error('Este e-mail já está cadastrado');
       }
-      
+
       // Se não existe, cria o novo usuário
       return $.ajax({
         url: `${API_URL}/usuarios`,
@@ -81,9 +81,9 @@ const Auth = {
         email: novoUsuario.email,
         loggedAt: new Date().toISOString()
       };
-      
+
       localStorage.setItem('usuario_sessao', JSON.stringify(sessao));
-      
+
       return novoUsuario;
     });
   },
@@ -114,12 +114,12 @@ const Auth = {
    */
   verificarAutenticacao: function(requireAuth = true) {
     const usuario = this.getUsuarioLogado();
-    
+
     if (requireAuth && !usuario) {
       window.location.href = './index.html';
       return null;
     }
-    
+
     return usuario;
   },
 

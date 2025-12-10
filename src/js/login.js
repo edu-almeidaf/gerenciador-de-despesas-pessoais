@@ -11,10 +11,10 @@ $(document).ready(function() {
     const email = $(this).val();
     const $input = $(this);
     const $erroSpan = $('#email-erro');
-    
+
     if (email.length > 0) {
       const resultado = Validacao.validarEmail(email);
-      
+
       if (!resultado.valido) {
         $input.addClass('input-error').removeClass('input-success');
         if ($erroSpan.length) {
@@ -38,7 +38,7 @@ $(document).ready(function() {
   // Handler do formulário de login
   $('#form-login').on('submit', function(e) {
     e.preventDefault();
-    
+
     const $form = $(this);
     const $btnSubmit = $form.find('button[type="submit"]');
     const email = $('#email').val().trim();
@@ -70,7 +70,7 @@ $(document).ready(function() {
     Auth.login(email, senha)
       .then(function(usuario) {
         Feedback.sucesso('mensagem-feedback', `Bem-vindo(a), ${usuario.nome}!`);
-        
+
         // Animação de saída e redirecionamento
         setTimeout(function() {
           $('main').addClass('animate-exit');
@@ -81,7 +81,7 @@ $(document).ready(function() {
       })
       .catch(function(error) {
         let mensagem = 'Erro ao fazer login. Tente novamente.';
-        
+
         if (error.message === 'Usuário não encontrado') {
           mensagem = 'E-mail não cadastrado. Verifique ou crie uma conta.';
           $('#email').addClass('input-error');
@@ -91,10 +91,10 @@ $(document).ready(function() {
         } else if (error.statusText === 'error') {
           mensagem = 'Erro de conexão. Verifique se o servidor está rodando.';
         }
-        
+
         Feedback.erro('mensagem-feedback', mensagem);
         Button.restaurar($btnSubmit);
-        
+
         // Shake animation no formulário
         $form.addClass('animate-shake');
         setTimeout(function() {
