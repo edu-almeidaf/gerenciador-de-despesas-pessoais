@@ -58,6 +58,42 @@
       "valor": 100,
       "tipo": "despesa",
       "data": "2025-11-08"
+    },
+    {
+      "id": 6,
+      "usuarioId": 2,
+      "descricao": "Salário",
+      "categoria": "Trabalho",
+      "valor": 4500,
+      "tipo": "receita",
+      "data": "2025-12-05"
+    },
+    {
+      "id": 7,
+      "usuarioId": 2,
+      "descricao": "Aluguel",
+      "categoria": "Moradia",
+      "valor": 1200,
+      "tipo": "despesa",
+      "data": "2025-12-01"
+    },
+    {
+      "id": 8,
+      "usuarioId": 2,
+      "descricao": "Mercado",
+      "categoria": "Alimentação",
+      "valor": 450,
+      "tipo": "despesa",
+      "data": "2025-12-03"
+    },
+    {
+      "id": 9,
+      "usuarioId": 2,
+      "descricao": "Freelance",
+      "categoria": "Projeto Web",
+      "valor": 800,
+      "tipo": "receita",
+      "data": "2025-12-08"
     }
   ]
 }

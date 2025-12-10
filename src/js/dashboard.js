@@ -53,10 +53,14 @@ function carregarTransacoes(usuarioId) {
   $.ajax({
     url: `${API_URL}/transacoes`,
     method: 'GET',
-    data: { usuarioId: usuarioId },
     dataType: 'json'
   })
-  .then(function(transacoes) {
+  .then(function(todasTransacoes) {
+    // Filtra transações do usuário (garante comparação numérica)
+    const transacoes = todasTransacoes.filter(t => 
+      Number(t.usuarioId) === Number(usuarioId)
+    );
+    
     // Ordena por data (mais recente primeiro)
     transacoes.sort((a, b) => new Date(b.data) - new Date(a.data));
     
