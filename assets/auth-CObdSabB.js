@@ -14,4 +14,4 @@
       `).hide().fadeIn(300)},limpar:function(f){ft(`#${f}`).addClass("hidden").empty()}},da={loading:function(f,s){f.data("texto-original",s).prop("disabled",!0).html(`
         <span class="loading loading-spinner loading-sm"></span>
         Aguarde...
-      `)},restaurar:function(f){const s=f.data("texto-original")||"Enviar";f.prop("disabled",!1).html(s)}};export{ft as $,ca as A,da as B,la as F,ua as r};
+      `)},restaurar:function(f){const s=f.data("texto-original")||"Enviar";f.prop("disabled",!1).html(s)}};export{ft as $,ca as A,da as B,la as F};
