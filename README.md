@@ -1,6 +1,6 @@
 # minhas-financas
 ### **Autor:** Eduardo de Almeida Fernandes
-Esta aplicação tem como objetivo de implementar um gerenciador de despesas pessoais, onde o usuário após logar na plataforma, terá acesso a um dashboard com um resumo do saldo atual, receitas, despesas, últimas transações e contação de moedas. Ele também poderá adicionar uma receita ou despesas e posteriormente ter acesso a essas transações de forma facilitada, permitindo total controle sobre suas finanças.
+Esta aplicação tem como objetivo de implementar um gerenciador de despesas pessoais, onde o usuário após logar na plataforma, terá acesso a um dashboard com um resumo do saldo atual, receitas, despesas, últimas transações e cotação de moedas em tempo real. Ele também poderá adicionar uma receita ou despesas e posteriormente ter acesso a essas transações de forma facilitada, permitindo total controle sobre suas finanças.
 
 O frontend da aplicação foi desenvolvido com **HTML**, **TailwindCSS**, **DaisyUI** e **JavaScript**, utilizando **Vite** para gerenciamento de dependências e build. O calendário foi implementado via Web Components com a biblioteca **Cally**.
 
@@ -24,8 +24,9 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 - **Cally** - Web Component de calendário acessível.
 
 ## Dependências JavaScript
-- **JQuery** - Para realizar animações (quando implementado).
-- **JSON Server** - Para simular uma API Rest (quando implementado).
+- **jQuery 3.7** - Manipulação do DOM, eventos e requisições AJAX.
+- **JSON Server 0.17** - Simula uma API REST para persistência de dados.
+- **Concurrently** - Executa múltiplos comandos em paralelo (Vite + JSON Server).
 
 ## Checklist | Indicadores de Desempenho (ID) dos Resultados de Aprendizagem (RA)
 
@@ -43,9 +44,9 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 
 #### RA2 - Realizar tratamento de formulários e aplicar validações customizadas no lado cliente, utilizando a API do HTML e expressões regulares (REGEX).
 - [x] ID 10 - Implementa tratamento de formulários no lado cliente com apresentação de mensagens de erro (texto próximo dos campos de entrada ou balões com mensagens) ou sucesso, utilizando os recursos da API do HTML, como validação de campos obrigatórios, tipo de entrada e limites de caracteres, garantindo que os dados inseridos sejam válidos antes de serem enviados para o servidor (via tratador de evento submit).
-- [ ] ID 11 - Aplica expressões regulares (REGEX) de forma eficiente para realizar validações customizadas nos campos de formulários, como formatos específicos de e-mail, telefone, data ou outros padrões personalizados definidos pelos requisitos do projeto.
+- [x] ID 11 - Aplica expressões regulares (REGEX) de forma eficiente para realizar validações customizadas nos campos de formulários, como formatos específicos de e-mail, telefone, data ou outros padrões personalizados definidos pelos requisitos do projeto.
 - [x] ID 12 - Incorpora elementos de listagem, como checkbox, radio ou select, de maneira eficiente em formulários web, possibilitando a seleção e coleta precisa de dados pelos usuários.
-- [ ] ID 13 - Realiza a escrita e leitura de dados no Web Storage, permitindo a persistência de informações entre sessões de usuário e fornecendo uma maneira eficaz de armazenar dados localmente no navegador.
+- [x] ID 13 - Realiza a escrita e leitura de dados no Web Storage, permitindo a persistência de informações entre sessões de usuário e fornecendo uma maneira eficaz de armazenar dados localmente no navegador.
 
 #### RA3 - Aplicar ferramentas para otimização do processo de desenvolvimento web, incluindo Node.js, NPM e linters para garantir a qualidade do código, juntamento com boas práticas de versionamento e organização de projetos.
 - [x] ID 14 - Configura adequadamente um ambiente de desenvolvimento usando Node.js e NPM para gerenciar pacotes e dependências do projeto, facilitando a instalação e o uso de bibliotecas e ferramentas de terceiros.
@@ -57,14 +58,14 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 - ~[ ] ID 20 - Utiliza as metodologias BEM (Block Element Modifier) ou SMACSS (Scalable and Modular Architecture for CSS) para organizar e estruturar os estilos CSS de forma eficiente, garantindo a reutilização de estilos, a legibilidade do código e a manutenção sustentável do projeto.~
 
 #### RA4 - Aplicar bibliotecas de funções e componentes em JavaScript para aprimorar a interatividade de páginas web.
-- [ ] ID 21 - Utiliza a biblioteca jQuery para manipular o DOM e aprimorar a interatividade das páginas web, implementando funcionalidades como eventos, animações e manipulação de elementos HTML de forma eficiente.  
+- [x] ID 21 - Utiliza a biblioteca jQuery para manipular o DOM e aprimorar a interatividade das páginas web, implementando funcionalidades como eventos, animações e manipulação de elementos HTML de forma eficiente.  
 - [ ] ID 22 - Seleciona e integra com sucesso um plugin jQuery, como o jQuery Mask Plugin ou outro plugin relevante para o projeto, a fim de melhorar a funcionalidade ou a aparência de elementos específicos em uma página web. 
 - ~[x] ID 23 - Utiliza bibliotecas de web components, como Lit, para criar componentes reutilizáveis e encapsulados, melhorando a modularidade e a manutenibilidade das páginas web.~ 
 - ~[x] ID 24 - Utiliza uma biblioteca de componentes prontos, como Material Web Components ou outra de escolha, ou então, algum componente independente (standalone) a fim de oferecer funcionalidades específicas sem a necessidade de estar integrado a uma biblioteca completa.~
 
 #### RA5 - Efetuar requisições assíncronas para uma API fake e APIs públicas, permitindo a obtenção e manipulação de dados dinamicamente.
-- [ ] ID 25 - Realiza requisições assíncronas para uma API fake utilizando adequadamente conceitos como AJAX, Fetch API ou bibliotecas, para persistir os dados originados de um formulário.
-- [ ] ID 26 - Realiza requisições assíncronas para uma API fake utilizando adequadamente conceitos como AJAX, Fetch API ou bibliotecas, para exibição dos dados na página web.
+- [x] ID 25 - Realiza requisições assíncronas para uma API fake utilizando adequadamente conceitos como AJAX, Fetch API ou bibliotecas, para persistir os dados originados de um formulário.
+- [x] ID 26 - Realiza requisições assíncronas para uma API fake utilizando adequadamente conceitos como AJAX, Fetch API ou bibliotecas, para exibição dos dados na página web.
 
 ## Manual de execução
 
@@ -76,7 +77,7 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 
 1. Clone o repositório ou navegue até a pasta do projeto:
 ```bash
-git clone [https://github.com/edu-almeidaf/gerenciador-de-despesas-pessoais.git](https://github.com/edu-almeidaf/gerenciador-de-despesas-pessoais.git)
+git clone https://github.com/edu-almeidaf/gerenciador-de-despesas-pessoais.git
 cd gerenciador-de-despesas-pessoais
 ```
 
@@ -87,15 +88,26 @@ npm install
 
 ### Executando o projeto
 
-O projeto utiliza Vite para desenvolvimento e build.
+O projeto utiliza Vite para desenvolvimento e JSON Server para API fake.
 
 #### Modo Desenvolvimento (Recomendado)
 
-Para rodar o projeto localmente com Hot Reload:
+Para rodar o projeto completo (Vite + JSON Server) localmente:
+```bash
+npm run dev:full
+```
+- Frontend: http://localhost:5173 (ou porta alternativa)
+- API: http://localhost:3001
+
+#### Apenas Frontend
 ```bash
 npm run dev
 ```
-O acesso será via http://localhost:5173.
+
+#### Apenas API (JSON Server)
+```bash
+npm run server
+```
 
 ---
 
@@ -115,6 +127,26 @@ npm run deploy
 
 > **Nota:** As telas são totalmente responsivas e se adaptam automaticamente entre mobile e desktop usando TailwindCSS com abordagem mobile-first.
 
+## Funcionalidades Implementadas
+
+### Autenticação
+- **Login** com validação de email (REGEX) e verificação de credenciais via API
+- **Cadastro** com validações de nome completo, email, senha (força) e confirmação
+- **Sessão persistida** no localStorage
+- **Proteção de rotas** - redireciona para login se não autenticado
+- **Logout** com animação de saída
+
+### Dashboard
+- **Cards dinâmicos** - Saldo, Receitas e Despesas calculados das transações
+- **Últimas 10 transações** - ordenadas por data
+- **Cotações em tempo real** - Dólar e Euro via API AwesomeAPI
+- **Nome do usuário** exibido dinamicamente
+
+### Validações com REGEX
+- Email: padrão RFC 5322 simplificado
+- Nome: letras, acentos, espaços (mínimo nome + sobrenome)
+- Senha: força com indicador visual (fraca/média/forte)
+
 ## Telas da aplicação
 
 Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
@@ -131,16 +163,29 @@ Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
 ├── adicionar-transacao.html     # Adicionar transação (mobile + web)
 ├── cadastro.html                # Tela de cadastro (mobile + web)
 ├── dashboard.html               # Dashboard (mobile + web)
+├── db.json                      # Banco de dados fake (JSON Server)
 ├── index.html                   # Tela de login (mobile + web)
 ├── package.json                 # Dependências      
 ├── package-lock.json            # Dependências secundárias necessárias
 ├── README.md                    # Documentação do projeto
 ├── src
 │   ├── css
-│   │   └── style.css            # Arquivo principal de css com as configurações do Tailwind
+│   │   └── style.css            # Estilos customizados e configurações Tailwind
 │   └── js
-│       ├── calendar.js          # Script js necessário para a configuração do calendário
-│       └── main.js              # Arquivo principal de javascript, que importará os demais arquivos js e os estilos do tailwind
+│       ├── auth.js              # Módulo de autenticação (login, cadastro, sessão)
+│       ├── cadastro.js          # Lógica da página de cadastro
+│       ├── calendar.js          # Configuração do calendário Cally
+│       ├── dashboard.js         # Lógica do dashboard (transações, cotações)
+│       ├── login.js             # Lógica da página de login
+│       ├── main.js              # Arquivo principal (importa CSS e libs)
+│       ├── protegido.js         # Script para páginas que requerem autenticação
+│       └── validacao.js         # Módulo de validações com REGEX
 ├── todas-transacoes.html        # Todas as transações (mobile + web)
 └── vite.config.js               # Configurações do Vite
 ```
+
+## Usuário de Teste
+
+Para testar a aplicação, use as credenciais:
+- **Email:** `ricardo@email.com`
+- **Senha:** `123456`
