@@ -162,6 +162,14 @@ npm run deploy
 - **Validação REGEX** - Descrição, valor e data obrigatórios
 - **Persistência** - Salva transação via API (JSON Server)
 
+### Todas as Transações
+- **Listagem completa** - Exibe todas as transações do usuário
+- **Paginação** - 10 itens por página com navegação intuitiva
+- **Filtro por busca** - Pesquisa por descrição com debounce
+- **Filtro por tipo** - Receitas, Despesas ou Todas
+- **Filtro por período** - Este mês, Mês passado, Últimos 3 meses, Este ano
+- **Exclusão** - Remove transações com confirmação
+
 ### Validações com REGEX
 - Email: padrão RFC 5322 simplificado
 - Nome: letras, acentos, espaços (mínimo nome + sobrenome)
@@ -204,6 +212,7 @@ Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
 │       ├── main.js              # Arquivo principal (importa CSS e libs)
 │       ├── protegido.js         # Script para páginas que requerem autenticação
 │       ├── transacao.js         # Lógica da página de adicionar transação
+│       ├── transacoes.js        # Lógica da página de todas as transações
 │       └── validacao.js         # Módulo de validações com REGEX
 ├── todas-transacoes.html        # Todas as transações (mobile + web)
 └── vite.config.js               # Configurações do Vite

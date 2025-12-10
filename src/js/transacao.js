@@ -16,6 +16,9 @@ const Patterns = {
   dataISO: /^\d{4}-\d{2}-\d{2}$/
 };
 
+// Variável global para armazenar os centavos (usada na verificação)
+let centavosGlobal = 0;
+
 $(document).ready(function() {
   // Verifica autenticação
   const usuario = Auth.verificarAutenticacao(true);
@@ -32,6 +35,13 @@ $(document).ready(function() {
 
   // Inicializa validações em tempo real
   inicializarValidacoesTempoReal();
+
+  // Verifica campos obrigatórios para habilitar botão
+  verificarCamposObrigatorios();
+
+  // Monitora mudanças nos campos
+  $('#descricao').on('input', verificarCamposObrigatorios);
+  $('#data-input').on('change', verificarCamposObrigatorios);
 
   // Handler do formulário
   $('#form-transacao').on('submit', function(e) {
@@ -146,17 +156,28 @@ function inicializarValidacoesTempoReal() {
 }
 
 /**
+ * Verifica se todos os campos obrigatórios estão preenchidos
+ */
+function verificarCamposObrigatorios() {
+  const descricao = $('#descricao').val().trim();
+  const data = $('#data-input').val();
+
+  const todosPreenchidos = descricao.length >= 3 &&
+                           centavosGlobal > 0 &&
+                           data.length > 0;
+
+  $('#btn-submit').prop('disabled', !todosPreenchidos);
+}
+
+/**
  * Inicializa o campo de valor com comportamento estilo app de banco
  * Digita da direita para esquerda, sempre com 2 casas decimais
  */
 function inicializarMascaraMonetaria() {
   const $valor = $('#valor');
 
-  // Valor interno em centavos
-  let centavos = 0;
-
   // Inicia com 0,00
-  $valor.val(formatarCentavos(centavos));
+  $valor.val(formatarCentavos(centavosGlobal));
 
   // Formata centavos para exibição (ex: 159 -> "1,59")
   function formatarCentavos(cents) {
@@ -179,16 +200,16 @@ function inicializarMascaraMonetaria() {
 
     // Backspace - remove último dígito
     if (key === 'Backspace') {
-      centavos = Math.floor(centavos / 10);
-      $valor.val(formatarCentavos(centavos));
+      centavosGlobal = Math.floor(centavosGlobal / 10);
+      $valor.val(formatarCentavos(centavosGlobal));
       atualizarFeedback();
       return false;
     }
 
     // Delete - zera o valor
     if (key === 'Delete') {
-      centavos = 0;
-      $valor.val(formatarCentavos(centavos));
+      centavosGlobal = 0;
+      $valor.val(formatarCentavos(centavosGlobal));
       atualizarFeedback();
       return false;
     }
@@ -196,13 +217,13 @@ function inicializarMascaraMonetaria() {
     // Apenas números (0-9)
     if (/^[0-9]$/.test(key)) {
       // Limite máximo (999.999.999,99 = 99999999999 centavos)
-      if (centavos > 9999999999) {
+      if (centavosGlobal > 9999999999) {
         return false;
       }
 
       // Adiciona dígito à direita
-      centavos = centavos * 10 + parseInt(key);
-      $valor.val(formatarCentavos(centavos));
+      centavosGlobal = centavosGlobal * 10 + parseInt(key);
+      $valor.val(formatarCentavos(centavosGlobal));
       atualizarFeedback();
       return false;
     }
@@ -217,10 +238,10 @@ function inicializarMascaraMonetaria() {
     // Tenta extrair apenas números
     const numeros = pastedText.replace(/\D/g, '');
     if (numeros) {
-      centavos = parseInt(numeros) || 0;
+      centavosGlobal = parseInt(numeros) || 0;
       // Limita ao máximo
-      if (centavos > 99999999999) centavos = 99999999999;
-      $valor.val(formatarCentavos(centavos));
+      if (centavosGlobal > 99999999999) centavosGlobal = 99999999999;
+      $valor.val(formatarCentavos(centavosGlobal));
       atualizarFeedback();
     }
   });
@@ -228,11 +249,13 @@ function inicializarMascaraMonetaria() {
   // Atualiza feedback visual
   function atualizarFeedback() {
     limparErroInline($valor);
-    if (centavos > 0) {
+    if (centavosGlobal > 0) {
       $valor.removeClass('input-error').addClass('input-success');
     } else {
       $valor.removeClass('input-success').removeClass('input-error');
     }
+    // Verifica campos obrigatórios após mudança no valor
+    verificarCamposObrigatorios();
   }
 
   // Ao focar, posiciona cursor no final
@@ -243,7 +266,7 @@ function inicializarMascaraMonetaria() {
 
   // Expõe função para obter valor em centavos (para validação)
   $valor.data('getCentavos', function() {
-    return centavos;
+    return centavosGlobal;
   });
 }
 
@@ -497,11 +520,11 @@ function salvarTransacao(usuarioId) {
       const tipoTexto = transacao.tipo === 'receita' ? 'Receita' : 'Despesa';
       Feedback.sucesso('mensagem-feedback', `${tipoTexto} adicionada com sucesso!`);
 
-      // Redireciona para o dashboard após sucesso
+      // Redireciona para todas as transações após sucesso
       setTimeout(function() {
         $('main').addClass('animate-exit');
         setTimeout(function() {
-          window.location.href = './dashboard.html';
+          window.location.href = './todas-transacoes.html';
         }, 300);
       }, 1000);
     })

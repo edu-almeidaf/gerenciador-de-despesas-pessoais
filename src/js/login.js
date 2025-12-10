@@ -6,6 +6,19 @@ $(document).ready(function() {
   // Redireciona se já estiver logado
   Auth.redirecionarSeLogado();
 
+  // Verifica campos obrigatórios para habilitar botão
+  function verificarCamposObrigatorios() {
+    const email = $('#email').val().trim();
+    const senha = $('#password').val();
+
+    const todosPreenchidos = email.length > 0 && senha.length > 0;
+
+    $('#btn-submit').prop('disabled', !todosPreenchidos);
+  }
+
+  // Monitora mudanças nos campos
+  $('#email, #password').on('input', verificarCamposObrigatorios);
+
   // Validação em tempo real do email
   $('#email').on('blur', function() {
     const email = $(this).val();

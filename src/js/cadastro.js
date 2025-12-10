@@ -15,6 +15,29 @@ $(document).ready(function() {
   };
 
   /**
+   * Verifica se todos os campos obrigatórios estão preenchidos
+   */
+  function verificarCamposObrigatorios() {
+    const nome = $('#nome').val().trim();
+    const email = $('#email').val().trim();
+    const senha = $('#password').val();
+    const confirmaSenha = $('#confirm-password').val();
+    const termos = $('#termos').is(':checked');
+
+    const todosPreenchidos = nome.length > 0 &&
+                             email.length > 0 &&
+                             senha.length > 0 &&
+                             confirmaSenha.length > 0 &&
+                             termos;
+
+    $('#btn-submit').prop('disabled', !todosPreenchidos);
+  }
+
+  // Monitora mudanças nos campos
+  $('#nome, #email, #password, #confirm-password').on('input', verificarCamposObrigatorios);
+  $('#termos').on('change', verificarCamposObrigatorios);
+
+  /**
    * Exibe erro inline abaixo do input
    */
   function mostrarErroInline($input, mensagem) {

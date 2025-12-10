@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       btnLimpar.classList.remove('hidden');
 
+      // Dispara evento change para atualizar estado do botão submit
+      hiddenInput.dispatchEvent(new Event('change'));
+
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur();
       }
@@ -39,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
       displaySpan.classList.add('text-zinc-400');
 
       btnLimpar.classList.add('hidden');
+
+      // Dispara evento change para atualizar estado do botão submit
+      hiddenInput.dispatchEvent(new Event('change'));
     });
   }
 });
