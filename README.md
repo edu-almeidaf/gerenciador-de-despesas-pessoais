@@ -25,8 +25,10 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 
 ## Dependências JavaScript
 - **jQuery 3.7** - Manipulação do DOM, eventos e requisições AJAX.
+- **jQuery Mask Plugin** - Máscaras de input para valores monetários.
 - **JSON Server 0.17** - Simula uma API REST para persistência de dados.
 - **Concurrently** - Executa múltiplos comandos em paralelo (Vite + JSON Server).
+- **ESLint** - Linter para análise e correção de código JavaScript.
 
 ## Checklist | Indicadores de Desempenho (ID) dos Resultados de Aprendizagem (RA)
 
@@ -109,6 +111,16 @@ npm run dev
 npm run server
 ```
 
+#### Verificar Código com ESLint
+```bash
+npm run lint
+```
+
+#### Corrigir Código Automaticamente
+```bash
+npm run lint:fix
+```
+
 ---
 
 Gerar Versão de Produção (Build)
@@ -130,22 +142,33 @@ npm run deploy
 ## Funcionalidades Implementadas
 
 ### Autenticação
-- **Login** com validação de email (REGEX) e verificação de credenciais via API
-- **Cadastro** com validações de nome completo, email, senha (força) e confirmação
-- **Sessão persistida** no localStorage
-- **Proteção de rotas** - redireciona para login se não autenticado
-- **Logout** com animação de saída
+- **Login** Com validação de email (REGEX) e verificação de credenciais via API
+- **Cadastro** Com validações de nome completo, email, senha (força) e confirmação
+- **Sessão persistida** No localStorage
+- **Proteção de rotas** - Redireciona para login se não autenticado
+- **Logout** Com animação de saída
 
 ### Dashboard
 - **Cards dinâmicos** - Saldo, Receitas e Despesas calculados das transações
-- **Últimas 10 transações** - ordenadas por data
+- **Últimas 10 transações** - Ordenadas por data
 - **Cotações em tempo real** - Dólar e Euro via API AwesomeAPI
-- **Nome do usuário** exibido dinamicamente
+- **Nome do usuário** Exibido dinamicamente
+
+### Adicionar Transação
+- **Input de valor estilo bancário** - Digita da direita para esquerda (centavos → reais)
+- **Máscara de moeda** - Formatação automática com jQuery Mask Plugin
+- **Calendário interativo** - Seleção de data com Web Component Cally
+- **Categorias** - Select com opções pré-definidas
+- **Validação REGEX** - Descrição, valor e data obrigatórios
+- **Persistência** - Salva transação via API (JSON Server)
 
 ### Validações com REGEX
 - Email: padrão RFC 5322 simplificado
 - Nome: letras, acentos, espaços (mínimo nome + sobrenome)
 - Senha: força com indicador visual (fraca/média/forte)
+- Descrição: mínimo 3 caracteres, máximo 100
+- Valor: formato monetário brasileiro (1.234,56)
+- Data: formato DD/MM/AAAA
 
 ## Telas da aplicação
 
@@ -164,6 +187,7 @@ Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
 ├── cadastro.html                # Tela de cadastro (mobile + web)
 ├── dashboard.html               # Dashboard (mobile + web)
 ├── db.json                      # Banco de dados fake (JSON Server)
+├── eslint.config.js             # Configuração do ESLint
 ├── index.html                   # Tela de login (mobile + web)
 ├── package.json                 # Dependências      
 ├── package-lock.json            # Dependências secundárias necessárias
@@ -179,6 +203,7 @@ Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
 │       ├── login.js             # Lógica da página de login
 │       ├── main.js              # Arquivo principal (importa CSS e libs)
 │       ├── protegido.js         # Script para páginas que requerem autenticação
+│       ├── transacao.js         # Lógica da página de adicionar transação
 │       └── validacao.js         # Módulo de validações com REGEX
 ├── todas-transacoes.html        # Todas as transações (mobile + web)
 └── vite.config.js               # Configurações do Vite
