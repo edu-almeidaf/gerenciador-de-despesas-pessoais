@@ -168,6 +168,7 @@ npm run deploy
 - **Filtro por busca** - Pesquisa por descrição com debounce
 - **Filtro por tipo** - Receitas, Despesas ou Todas
 - **Filtro por período** - Este mês, Mês passado, Últimos 3 meses, Este ano
+- **Limpar filtros** - Botão para resetar todos os filtros (aparece quando há filtro ativo)
 - **Exclusão** - Remove transações com confirmação
 
 ### Validações com REGEX
@@ -177,6 +178,13 @@ npm run deploy
 - Descrição: mínimo 3 caracteres, máximo 100
 - Valor: formato monetário brasileiro (1.234,56)
 - Data: formato DD/MM/AAAA
+
+### UX/Acessibilidade
+- **Botões disabled** - Botões de submit ficam desabilitados até preencher todos os campos obrigatórios
+- **Feedback visual** - Inputs com estados de sucesso/erro e mensagens inline
+- **Animações** - Transições suaves entre páginas (fadeIn/fadeOut)
+- **Shake animation** - Feedback visual em erros de formulário
+- **Loading states** - Indicadores de carregamento durante requisições
 
 ## Telas da aplicação
 
