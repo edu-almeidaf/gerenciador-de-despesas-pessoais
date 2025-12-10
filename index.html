@@ -9,11 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
   
   <title>Login - Minhas Finanças</title>
-  <script type="module" crossorigin src="/gerenciador-de-despesas-pessoais/assets/main-CLVK5zTg.js"></script>
-  <link rel="stylesheet" crossorigin href="/gerenciador-de-despesas-pessoais/assets/main-0yJTIODX.css">
+  <script type="module" crossorigin src="/gerenciador-de-despesas-pessoais/assets/main-DiCKg7-B.js"></script>
+  <link rel="modulepreload" crossorigin href="/gerenciador-de-despesas-pessoais/assets/auth-CSSp3u3s.js">
+  <link rel="modulepreload" crossorigin href="/gerenciador-de-despesas-pessoais/assets/validacao-DpY9Cg6P.js">
+  <link rel="stylesheet" crossorigin href="/gerenciador-de-despesas-pessoais/assets/auth-DH1IQvhW.css">
 </head>
 <body class="min-h-screen bg-zinc-50 grid place-items-center p-4">
-  <main class="w-full max-w-md space-y-8">
+  <main class="animate-enter w-full max-w-md space-y-8">
     <header class="text-center space-y-2">
       <div class="flex items-center justify-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-dollar-sign-icon lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
@@ -24,7 +26,10 @@
       <p class="text-zinc-500">Bem-vindo(a) de volta!</p>
     </header>
 
-    <form action="./dashboard.html" method="get" class="flex flex-col gap-4">
+    <!-- Container de mensagens de feedback -->
+    <div id="mensagem-feedback" class="alert hidden" role="alert"></div>
+
+    <form id="form-login" class="flex flex-col gap-4">
       
       <div class="form-control w-full">
         <label class="label" for="email">
@@ -37,7 +42,9 @@
           placeholder="Digite seu e-mail" 
           class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
           required 
+          autocomplete="email"
         />
+        <span id="email-erro" class="text-xs text-red-500 mt-1 hidden"></span>
       </div>
 
       <div class="form-control w-full">
@@ -51,17 +58,30 @@
           placeholder="Digite sua senha" 
           class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
           required 
+          autocomplete="current-password"
         />
         <label class="label">
           <a href="#" class="label-text-alt link link-hover text-zinc-500">Esqueceu a senha?</a>
         </label>
       </div>
 
-      <button type="submit" class="btn bg-red-500 hover:bg-red-700 text-white border-none w-full md:text-base font-bold h-12">
+      <button type="submit" id="btn-submit" class="btn bg-red-500 hover:bg-red-700 text-white border-none w-full md:text-base font-bold h-12 disabled:bg-zinc-300 disabled:text-zinc-500 disabled:cursor-not-allowed" disabled>
         Entrar
       </button>
 
+      <p class="text-center text-sm text-zinc-500">
+        Não tem uma conta? 
+        <a href="./cadastro.html" class="link link-hover text-red-500 font-medium">Cadastre-se</a>
+      </p>
+
     </form>
+
+    <!-- Dica de teste -->
+    <div class="text-center text-xs text-zinc-400 border-t border-zinc-200 pt-4">
+      <p class="font-medium mb-1">Usuário de teste:</p>
+      <p>E-mail: <code class="bg-zinc-100 px-1 rounded">ricardo@email.com</code></p>
+      <p>Senha: <code class="bg-zinc-100 px-1 rounded">123456</code></p>
+    </div>
   </main>
 
 </body>
