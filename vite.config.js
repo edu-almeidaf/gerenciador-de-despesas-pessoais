@@ -11,6 +11,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        cadastro: resolve(__dirname, 'cadastro.html'),
         dashboard: resolve(__dirname, 'dashboard.html'),
         adicionarTransacao: resolve(__dirname, 'adicionar-transacao.html'),
         todasTransacoes: resolve(__dirname, 'todas-transacoes.html'),

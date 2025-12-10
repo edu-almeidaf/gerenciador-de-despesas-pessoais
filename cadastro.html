@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
+  
+  <title>Cadastro - Minhas Finanças</title>
+</head>
+<body class="min-h-screen bg-zinc-50 grid place-items-center p-4 py-8">
+  <main class="animate-enter w-full max-w-md space-y-6">
+    <header class="text-center space-y-2">
+      <div class="flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-dollar-sign-icon lucide-circle-dollar-sign"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+
+        <h1 class="text-3xl font-bold text-zinc-950">Minhas Finanças</h1>
+      </div>
+      
+      <p class="text-zinc-500">Crie sua conta e comece a controlar suas finanças!</p>
+    </header>
+
+    <!-- Container de mensagens de feedback -->
+    <div id="mensagem-feedback" class="alert hidden" role="alert"></div>
+
+    <form id="form-cadastro" class="flex flex-col gap-4">
+      
+      <div class="form-control w-full">
+        <label class="label" for="nome">
+          <span class="label-text text-base font-medium text-zinc-950">Qual seu nome?</span>
+        </label>
+        <input 
+          id="nome" 
+          name="nome" 
+          type="text" 
+          placeholder="Digite seu nome completo" 
+          class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
+          required 
+          minlength="3"
+          autocomplete="name"
+        />
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label" for="email">
+          <span class="label-text text-base font-medium text-zinc-950">Qual seu e-mail?</span>
+        </label>
+        <input 
+          id="email" 
+          name="email" 
+          type="email" 
+          placeholder="Digite seu e-mail" 
+          class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
+          required 
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label" for="password">
+          <span class="label-text text-base font-medium text-zinc-950">Crie uma senha</span>
+        </label>
+        <input 
+          id="password" 
+          name="password" 
+          type="password" 
+          placeholder="Letras e números, mínimo 6 caracteres" 
+          class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
+          required 
+          minlength="6"
+          autocomplete="new-password"
+        />
+        <!-- Indicador de força da senha -->
+        <div id="senha-forca" class="mt-2 items-center gap-2 hidden">
+          <progress class="progress w-full h-1" value="0" max="100"></progress>
+          <span class="text-xs w-12"></span>
+        </div>
+        <!-- Requisitos da senha -->
+        <div id="senha-requisitos" class="hidden mt-3 p-3 bg-zinc-100 rounded-lg">
+          <p class="text-xs font-medium text-zinc-700 mb-2">Sua senha deve conter:</p>
+          <ul class="space-y-1 text-xs">
+            <li id="req-tamanho" class="flex items-center gap-2 text-zinc-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Pelo menos 6 caracteres
+            </li>
+            <li id="req-letra" class="flex items-center gap-2 text-zinc-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Pelo menos uma letra
+            </li>
+            <li id="req-numero" class="flex items-center gap-2 text-zinc-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Pelo menos um número
+            </li>
+            <li id="req-especial" class="flex items-center gap-2 text-zinc-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Caractere especial <span class="text-zinc-500">(opcional, recomendado)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label" for="confirm-password">
+          <span class="label-text text-base font-medium text-zinc-950">Confirme sua senha</span>
+        </label>
+        <input 
+          id="confirm-password" 
+          name="confirm-password" 
+          type="password" 
+          placeholder="Repita a senha" 
+          class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
+          required 
+          minlength="6"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="form-control">
+        <label class="label cursor-pointer justify-start gap-3">
+          <input 
+            id="termos"
+            type="checkbox" 
+            class="checkbox checkbox-sm border-zinc-400 checked:border-red-500 [--chkbg:var(--color-red-500)] [--chkfg:white]" 
+            required 
+          />
+          <span class="label-text text-sm text-zinc-600">
+            Aceito os <a href="#" class="link link-hover text-red-500">Termos de Uso</a> e a <a href="#" class="link link-hover text-red-500">Política de Privacidade</a>
+          </span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn bg-red-500 hover:bg-red-700 text-white border-none w-full md:text-base font-bold h-12">
+        Criar conta
+      </button>
+
+      <p class="text-center text-sm text-zinc-500">
+        Já tem uma conta? 
+        <a href="./index.html" class="link link-hover text-red-500 font-medium">Faça login</a>
+      </p>
+
+    </form>
+  </main>
+
+  <script type="module" src="./src/js/main.js"></script>
+  <script type="module" src="./src/js/cadastro.js"></script>
+</body>
+</html>

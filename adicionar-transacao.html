@@ -34,10 +34,24 @@
     </div>
 
     <div class="navbar-end hidden md:flex">
-      <div class="avatar placeholder">
-        <div class="bg-zinc-200 text-zinc-600 rounded-full w-9 h-9 grid place-items-center">
-          <span class="text-sm font-medium">R</span>
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="avatar placeholder cursor-pointer">
+          <div class="bg-zinc-200 text-zinc-600 rounded-full w-9 h-9 grid place-items-center hover:bg-zinc-300 transition-colors">
+            <span class="text-sm font-medium avatar-inicial">R</span>
+          </div>
         </div>
+        <ul tabindex="0" class="dropdown-content z-1 menu p-2 shadow-lg bg-white rounded-box w-52 mt-2 border border-zinc-200">
+          <li class="menu-title px-4 py-2">
+            <span class="text-zinc-500 text-xs">Logado como</span>
+            <span class="text-zinc-950 font-medium text-sm" id="usuario-email"></span>
+          </li>
+          <li>
+            <a href="#" id="btn-logout" class="text-red-500 hover:bg-red-50">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+              Sair
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </header>
@@ -163,5 +177,6 @@
 
   <script type="module" src="./src/js/main.js"></script>
   <script type="module" src="./src/js/calendar.js"></script>
+  <script type="module" src="./src/js/protegido.js"></script>
 </body>
 </html>

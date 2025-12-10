@@ -22,7 +22,10 @@
       <p class="text-zinc-500">Bem-vindo(a) de volta!</p>
     </header>
 
-    <form action="./dashboard.html" method="get" class="flex flex-col gap-4">
+    <!-- Container de mensagens de feedback -->
+    <div id="mensagem-feedback" class="alert hidden" role="alert"></div>
+
+    <form id="form-login" class="flex flex-col gap-4">
       
       <div class="form-control w-full">
         <label class="label" for="email">
@@ -35,7 +38,9 @@
           placeholder="Digite seu e-mail" 
           class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
           required 
+          autocomplete="email"
         />
+        <span id="email-erro" class="text-xs text-red-500 mt-1 hidden"></span>
       </div>
 
       <div class="form-control w-full">
@@ -49,6 +54,7 @@
           placeholder="Digite sua senha" 
           class="input input-bordered w-full h-14 bg-zinc-50 border-zinc-950 text-amber-900 placeholder:text-amber-900/60 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500" 
           required 
+          autocomplete="current-password"
         />
         <label class="label">
           <a href="#" class="label-text-alt link link-hover text-zinc-500">Esqueceu a senha?</a>
@@ -59,9 +65,22 @@
         Entrar
       </button>
 
+      <p class="text-center text-sm text-zinc-500">
+        Não tem uma conta? 
+        <a href="./cadastro.html" class="link link-hover text-red-500 font-medium">Cadastre-se</a>
+      </p>
+
     </form>
+
+    <!-- Dica de teste -->
+    <div class="text-center text-xs text-zinc-400 border-t border-zinc-200 pt-4">
+      <p class="font-medium mb-1">Usuário de teste:</p>
+      <p>E-mail: <code class="bg-zinc-100 px-1 rounded">ricardo@email.com</code></p>
+      <p>Senha: <code class="bg-zinc-100 px-1 rounded">123456</code></p>
+    </div>
   </main>
 
   <script type="module" src="./src/js/main.js"></script>
+  <script type="module" src="./src/js/login.js"></script>
 </body>
 </html>

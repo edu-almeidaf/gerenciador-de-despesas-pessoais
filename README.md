@@ -120,6 +120,7 @@ npm run deploy
 Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
 
 - [Login](./index.html) - Tela de login responsiva
+- [Cadastro](./cadastro.html) - Tela de cadastro de novo usuário responsiva
 - [Dashboard](./dashboard.html) - Dashboard com cards e transações responsivo
 - [Adicionar Transação](./adicionar-transacao.html) - Formulário para adicionar transação responsivo
 - [Todas as Transações](./todas-transacoes.html) - Lista/tabela de todas as transações responsiva
@@ -128,6 +129,7 @@ Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
 
 ```
 ├── adicionar-transacao.html     # Adicionar transação (mobile + web)
+├── cadastro.html                # Tela de cadastro (mobile + web)
 ├── dashboard.html               # Dashboard (mobile + web)
 ├── index.html                   # Tela de login (mobile + web)
 ├── package.json                 # Dependências      
