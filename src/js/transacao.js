@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import 'jquery-mask-plugin';
 import { Auth, Feedback, Button } from './auth.js';
 
 const API_URL = 'http://localhost:3001';

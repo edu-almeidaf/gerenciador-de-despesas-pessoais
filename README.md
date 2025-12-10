@@ -25,7 +25,6 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 
 ## Dependências JavaScript
 - **jQuery 3.7** - Manipulação do DOM, eventos e requisições AJAX.
-- **jQuery Mask Plugin** - Máscaras de input para valores monetários.
 - **JSON Server 0.17** - Simula uma API REST para persistência de dados.
 - **Concurrently** - Executa múltiplos comandos em paralelo (Vite + JSON Server).
 - **ESLint** - Linter para análise e correção de código JavaScript.
@@ -61,7 +60,7 @@ https://www.figma.com/design/Fr6EE1slMn1HOiaesUQxGe/Gerenciador-de-finan%C3%A7as
 
 #### RA4 - Aplicar bibliotecas de funções e componentes em JavaScript para aprimorar a interatividade de páginas web.
 - [x] ID 21 - Utiliza a biblioteca jQuery para manipular o DOM e aprimorar a interatividade das páginas web, implementando funcionalidades como eventos, animações e manipulação de elementos HTML de forma eficiente.  
-- [x] ID 22 - Seleciona e integra com sucesso um plugin jQuery, como o jQuery Mask Plugin ou outro plugin relevante para o projeto, a fim de melhorar a funcionalidade ou a aparência de elementos específicos em uma página web. 
+- [x] ID 22 - Seleciona e integra com sucesso um plugin jQuery, como o jQuery Mask Plugin ou outro plugin relevante para o projeto, a fim de melhorar a funcionalidade ou a aparência de elementos específicos em uma página web. *(Implementado: máscara monetária customizada estilo app bancário em transacao.js)* 
 - ~[x] ID 23 - Utiliza bibliotecas de web components, como Lit, para criar componentes reutilizáveis e encapsulados, melhorando a modularidade e a manutenibilidade das páginas web.~ 
 - ~[x] ID 24 - Utiliza uma biblioteca de componentes prontos, como Material Web Components ou outra de escolha, ou então, algum componente independente (standalone) a fim de oferecer funcionalidades específicas sem a necessidade de estar integrado a uma biblioteca completa.~
 
@@ -156,7 +155,7 @@ npm run deploy
 
 ### Adicionar Transação
 - **Input de valor estilo bancário** - Digita da direita para esquerda (centavos → reais)
-- **Máscara de moeda** - Formatação automática com jQuery Mask Plugin
+- **Máscara de moeda customizada** - Implementação própria inspirada em apps de banco
 - **Calendário interativo** - Seleção de data com Web Component Cally
 - **Categorias** - Select com opções pré-definidas
 - **Validação REGEX** - Descrição, valor e data obrigatórios

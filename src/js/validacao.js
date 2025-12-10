@@ -1,6 +1,6 @@
 /**
  * Módulo de Validação com Regex
- * Validações robustas para formulários profissionais
+ * Validações para formulários de autenticação
  */
 
 const Validacao = {
@@ -9,23 +9,8 @@ const Validacao = {
     // Email: padrão RFC 5322 simplificado
     email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
 
-    // Nome: letras (incluindo acentos), espaços e hífens, mínimo 3 caracteres
-    nome: /^[a-zA-ZÀ-ÿ]+([\s'-][a-zA-ZÀ-ÿ]+)*$/,
-
-    // Senha forte: mínimo 8 caracteres, 1 maiúscula, 1 minúscula, 1 número, 1 especial
-    senhaForte: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
-
-    // Senha média: mínimo 6 caracteres, letras e números
-    senhaMedia: /^(?=.*[a-zA-Z])(?=.*\d).{6,}$/,
-
-    // Apenas letras
-    apenasLetras: /^[a-zA-ZÀ-ÿ\s]+$/,
-
-    // Telefone brasileiro: (XX) XXXXX-XXXX ou (XX) XXXX-XXXX
-    telefone: /^\(?\d{2}\)?[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
-
-    // CPF: XXX.XXX.XXX-XX
-    cpf: /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/
+    // Nome: letras (incluindo acentos), espaços e hífens
+    nome: /^[a-zA-ZÀ-ÿ]+([\s'-][a-zA-ZÀ-ÿ]+)*$/
   },
 
   /**
