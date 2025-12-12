@@ -1,12 +1,11 @@
 import $ from 'jquery';
-import { Auth } from './auth.js';
-import { Feedback } from './feedback.js';
-import { Button } from './button.js';
-import { Validacao } from './validacao.js';
-import { Input } from './input.js';
-import { PasswordStrength } from './password-strength.js';
+import { Auth } from '../core/auth.js';
+import { Validacao } from '../core/validacao.js';
+import { Feedback } from '../components/feedback.js';
+import { Button } from '../components/button.js';
+import { Input } from '../components/input.js';
+import { PasswordStrength } from '../components/password-strength.js';
 
-// Estado de validação dos campos
 const estadoValidacao = {
   nome: false,
   email: false,
@@ -71,18 +70,14 @@ function handleSenhaInput() {
     return;
   }
 
-  // Calcula e exibe força da senha
   const forca = Validacao.getForcaSenha(senha);
   PasswordStrength.atualizarIndicador(senha, $indicator, forca);
 
-  // Valida requisitos da senha (nível médio)
   const resultado = Validacao.validarSenha(senha, 'medio');
   estadoValidacao.senha = resultado.valido;
 
-  // Atualiza requisitos visuais
   PasswordStrength.atualizarRequisitos(senha, $requisitos);
 
-  // Revalida confirmação se já tiver valor
   const confirmaSenha = $('#confirm-password').val();
   if (confirmaSenha.length > 0) {
     validarConfirmacaoSenha();
@@ -126,11 +121,9 @@ function validarFormulario() {
   const confirmaSenha = $('#confirm-password').val();
   const aceitaTermos = $('#termos').is(':checked');
 
-  // Limpa mensagens anteriores
   Feedback.limpar('mensagem-feedback');
   $('.input').removeClass('input-error');
 
-  // Validação do nome
   const nomeValidacao = Validacao.validarNome(nome);
   if (!nomeValidacao.valido) {
     Feedback.erro('mensagem-feedback', nomeValidacao.mensagem);
@@ -138,7 +131,6 @@ function validarFormulario() {
     return null;
   }
 
-  // Validação do email
   const emailValidacao = Validacao.validarEmail(email);
   if (!emailValidacao.valido) {
     Feedback.erro('mensagem-feedback', emailValidacao.mensagem);
@@ -146,7 +138,6 @@ function validarFormulario() {
     return null;
   }
 
-  // Validação da senha
   const senhaValidacao = Validacao.validarSenha(senha, 'medio');
   if (!senhaValidacao.valido) {
     Feedback.erro('mensagem-feedback', senhaValidacao.mensagem);
@@ -154,7 +145,6 @@ function validarFormulario() {
     return null;
   }
 
-  // Validação da confirmação de senha
   const confirmacaoValidacao = Validacao.validarConfirmacaoSenha(senha, confirmaSenha);
   if (!confirmacaoValidacao.valido) {
     Feedback.erro('mensagem-feedback', confirmacaoValidacao.mensagem);
@@ -162,7 +152,6 @@ function validarFormulario() {
     return null;
   }
 
-  // Validação dos termos
   if (!aceitaTermos) {
     Feedback.erro('mensagem-feedback', 'Você precisa aceitar os Termos de Uso para continuar');
     $('#termos').focus();
@@ -179,7 +168,6 @@ function validarFormulario() {
 function handleCadastroSucesso(usuario) {
   Feedback.sucesso('mensagem-feedback', `Conta criada com sucesso! Bem-vindo(a), ${usuario.nome}!`);
 
-  // Animação de saída e redirecionamento
   setTimeout(function() {
     $('main').addClass('animate-exit');
     setTimeout(function() {
@@ -207,7 +195,6 @@ function handleCadastroErro(error, $form, $btnSubmit) {
   Feedback.erro('mensagem-feedback', mensagem);
   Button.restaurar($btnSubmit);
 
-  // Shake animation no formulário
   $form.addClass('animate-shake');
   setTimeout(function() {
     $form.removeClass('animate-shake');
@@ -241,11 +228,9 @@ async function handleSubmitCadastro(e) {
  * Configura os event listeners da página
  */
 function configurarEventListeners() {
-  // Monitora mudanças nos campos para habilitar/desabilitar botão
   $('#nome, #email, #password, #confirm-password').on('input', verificarCamposObrigatorios);
   $('#termos').on('change', verificarCamposObrigatorios);
 
-  // Validação do nome
   Input.configurarValidacao(
     $('#nome'),
     Validacao.validarNome,
@@ -253,7 +238,6 @@ function configurarEventListeners() {
     'nome'
   );
 
-  // Validação do email
   Input.configurarValidacao(
     $('#email'),
     Validacao.validarEmail,
@@ -261,18 +245,14 @@ function configurarEventListeners() {
     'email'
   );
 
-  // Validação da senha (tratamento especial com força de senha)
   $('#password').on('input', handleSenhaInput);
   $('#password').on('blur', handleSenhaBlur);
 
-  // Validação da confirmação de senha
   $('#confirm-password').on('input', handleConfirmaSenhaInput);
   $('#confirm-password').on('blur', validarConfirmacaoSenha);
 
-  // Submit do formulário
   $('#form-cadastro').on('submit', handleSubmitCadastro);
 
-  // Efeito de foco nos inputs
   Input.configurarEfeitoFoco('.input');
 }
 
@@ -281,8 +261,8 @@ function configurarEventListeners() {
  */
 function init() {
   Auth.redirecionarSeLogado();
-
   configurarEventListeners();
 }
 
 $(document).ready(init);
+

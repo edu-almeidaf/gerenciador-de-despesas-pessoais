@@ -1,8 +1,8 @@
 /**
-  * Desabilita botão e mostra loading
-  * @param {jQuery} $btn - Elemento jQuery do botão
-  * @param {string} textoOriginal - Texto original do botão
-  */
+ * Desabilita botão e mostra loading
+ * @param {jQuery} $btn - Elemento jQuery do botão
+ * @param {string} textoOriginal - Texto original do botão
+ */
 function loading($btn, textoOriginal) {
   $btn
     .data('texto-original', textoOriginal)

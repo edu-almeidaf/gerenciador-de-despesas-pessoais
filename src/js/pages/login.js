@@ -1,9 +1,9 @@
 import $ from 'jquery';
-import { Auth } from './auth.js';
-import { Feedback } from './feedback.js';
-import { Button } from './button.js';
-import { Validacao } from './validacao.js';
-import { Input } from './input.js';
+import { Auth } from '../core/auth.js';
+import { Validacao } from '../core/validacao.js';
+import { Feedback } from '../components/feedback.js';
+import { Button } from '../components/button.js';
+import { Input } from '../components/input.js';
 
 const estadoValidacao = {
   email: false
@@ -29,11 +29,9 @@ function validarFormulario() {
   const email = $('#email').val().trim();
   const senha = $('#password').val();
 
-  // Limpa mensagens anteriores
   Feedback.limpar('mensagem-feedback');
   $('.input').removeClass('input-error');
 
-  // Validação do email
   const emailValidacao = Validacao.validarEmail(email);
   if (!emailValidacao.valido) {
     Feedback.erro('mensagem-feedback', emailValidacao.mensagem);
@@ -41,7 +39,6 @@ function validarFormulario() {
     return null;
   }
 
-  // Validação de senha (básica para login - só verifica se foi preenchida)
   if (!senha || senha.length < 1) {
     Feedback.erro('mensagem-feedback', 'Digite sua senha');
     $('#password').addClass('input-error').focus();
@@ -58,7 +55,6 @@ function validarFormulario() {
 function handleLoginSucesso(usuario) {
   Feedback.sucesso('mensagem-feedback', `Bem-vindo(a), ${usuario.nome}!`);
 
-  // Animação de saída e redirecionamento
   setTimeout(function() {
     $('main').addClass('animate-exit');
     setTimeout(function() {
@@ -95,7 +91,6 @@ function handleLoginErro(error, $form, $btnSubmit) {
   Feedback.erro('mensagem-feedback', mensagem);
   Button.restaurar($btnSubmit);
 
-  // Shake animation no formulário
   $form.addClass('animate-shake');
   setTimeout(function() {
     $form.removeClass('animate-shake');
@@ -131,7 +126,6 @@ async function handleSubmitLogin(e) {
 function configurarEventListeners() {
   $('#email, #password').on('input', verificarCamposObrigatorios);
 
-  // Validação do email
   Input.configurarValidacao(
     $('#email'),
     Validacao.validarEmail,
@@ -139,10 +133,8 @@ function configurarEventListeners() {
     'email'
   );
 
-  // Submit do formulário
   $('#form-login').on('submit', handleSubmitLogin);
 
-  // Efeito de foco nos inputs
   Input.configurarEfeitoFoco('.input');
 }
 
@@ -155,3 +147,4 @@ function init() {
 }
 
 $(document).ready(init);
+

@@ -7,10 +7,7 @@
  * Padrões REGEX para validação
  */
 const patterns = {
-  // Email: padrão RFC 5322 simplificado
   email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-
-  // Nome: letras (incluindo acentos), espaços e hífens
   nome: /^[a-zA-ZÀ-ÿ]+([\s'-][a-zA-ZÀ-ÿ]+)*$/
 };
 
@@ -180,19 +177,16 @@ function validarConfirmacaoSenha(senha, confirmacao) {
 function calcularPontuacaoSenha(senha) {
   let pontos = 0;
 
-  // Comprimento
   if (senha.length >= 6) pontos += 1;
   if (senha.length >= 8) pontos += 1;
   if (senha.length >= 10) pontos += 1;
   if (senha.length >= 12) pontos += 1;
 
-  // Tipos de caracteres
   if (/[a-z]/.test(senha)) pontos += 1;
   if (/[A-Z]/.test(senha)) pontos += 1;
   if (/[0-9]/.test(senha)) pontos += 1;
   if (/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(senha)) pontos += 2;
 
-  // Penalidades
   if (/^[a-zA-Z]+$/.test(senha)) pontos -= 1;
   if (/^[0-9]+$/.test(senha)) pontos -= 2;
   if (/(.)\1{2,}/.test(senha)) pontos -= 1;
@@ -247,3 +241,4 @@ export const Validacao = {
   validarConfirmacaoSenha,
   getForcaSenha
 };
+

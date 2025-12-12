@@ -195,7 +195,59 @@ Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
 - [Adicionar Transação](./adicionar-transacao.html) - Formulário para adicionar transação responsivo
 - [Todas as Transações](./todas-transacoes.html) - Lista/tabela de todas as transações responsiva
 
-### Estrutura de arquivos
+## Arquitetura e Organização do Código
+
+O projeto segue uma arquitetura modular com separação clara de responsabilidades, aplicando princípios de Clean Code.
+
+### Estrutura de Pastas JavaScript
+
+```
+src/js/
+├── core/                    # Módulos fundamentais da aplicação
+│   ├── auth.js              # Autenticação (login, cadastro, sessão)
+│   └── validacao.js         # Validações com REGEX (email, nome, senha)
+│
+├── components/              # Componentes reutilizáveis de UI
+│   ├── button.js            # Controle de estado de botões (loading/restaurar)
+│   ├── calendar.js          # Componente de calendário com Cally
+│   ├── feedback.js          # Mensagens de erro/sucesso
+│   ├── input.js             # Utilitários de input (erro, validação, foco)
+│   └── password-strength.js # Indicador de força de senha
+│
+├── modules/                 # Módulos de funcionalidade compartilhada
+│   ├── usuario.js           # UI do usuário (avatar, nome, logout)
+│   └── protegido.js         # Proteção de rotas autenticadas
+│
+├── pages/                   # Lógica específica de cada página
+│   ├── login.js             # Página de login
+│   ├── cadastro.js          # Página de cadastro
+│   ├── dashboard.js         # Página do dashboard
+│   ├── transacao.js         # Página de adicionar transação
+│   └── transacoes.js        # Página de todas as transações
+│
+└── main.js                  # Entry point (importa CSS e libs)
+```
+
+### Princípios Aplicados
+
+#### Separação de Responsabilidades
+- **core/**: Lógica de negócio fundamental (autenticação, validação)
+- **components/**: Componentes de UI reutilizáveis e independentes
+- **modules/**: Funcionalidades compartilhadas entre páginas
+- **pages/**: Código específico de cada página da aplicação
+
+#### Clean Code
+- **Funções nomeadas**: Substituição de funções anônimas por funções com nomes descritivos
+- **Handlers dedicados**: Separação de event handlers em funções específicas
+- **Inicialização estruturada**: Padrão `init()` e `configurarEventListeners()` em cada módulo
+- **Eliminação de duplicação**: Código comum extraído para módulos reutilizáveis
+
+#### Padrões de Código Modernos
+- **async/await**: Substituição de `.then().catch()` por `try/catch` com async/await
+- **Módulos ES6**: Export/import para organização do código
+- **JSDoc**: Documentação completa de funções e módulos
+
+### Estrutura Completa do Projeto
 
 ```
 ├── adicionar-transacao.html     # Adicionar transação (mobile + web)
@@ -211,16 +263,25 @@ Todas as telas são responsivas e unificadas (mobile e web no mesmo arquivo):
 │   ├── css
 │   │   └── style.css            # Estilos customizados e configurações Tailwind
 │   └── js
-│       ├── auth.js              # Módulo de autenticação (login, cadastro, sessão)
-│       ├── cadastro.js          # Lógica da página de cadastro
-│       ├── calendar.js          # Configuração do calendário Cally
-│       ├── dashboard.js         # Lógica do dashboard (transações, cotações)
-│       ├── login.js             # Lógica da página de login
-│       ├── main.js              # Arquivo principal (importa CSS e libs)
-│       ├── protegido.js         # Script para páginas que requerem autenticação
-│       ├── transacao.js         # Lógica da página de adicionar transação
-│       ├── transacoes.js        # Lógica da página de todas as transações
-│       └── validacao.js         # Módulo de validações com REGEX
+│       ├── core/                # Módulos fundamentais
+│       │   ├── auth.js          # Autenticação
+│       │   └── validacao.js     # Validações REGEX
+│       ├── components/          # Componentes de UI
+│       │   ├── button.js        # Controle de botões
+│       │   ├── calendar.js      # Calendário
+│       │   ├── feedback.js      # Mensagens de feedback
+│       │   ├── input.js         # Utilitários de input
+│       │   └── password-strength.js  # Força de senha
+│       ├── modules/             # Módulos compartilhados
+│       │   ├── usuario.js       # UI do usuário
+│       │   └── protegido.js     # Rotas protegidas
+│       ├── pages/               # Lógica das páginas
+│       │   ├── login.js         # Login
+│       │   ├── cadastro.js      # Cadastro
+│       │   ├── dashboard.js     # Dashboard
+│       │   ├── transacao.js     # Adicionar transação
+│       │   └── transacoes.js    # Todas transações
+│       └── main.js              # Entry point
 ├── todas-transacoes.html        # Todas as transações (mobile + web)
 └── vite.config.js               # Configurações do Vite
 ```

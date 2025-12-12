@@ -4,7 +4,7 @@ import $ from 'jquery';
  * Exibe mensagem de erro
  * @param {string} containerId - ID do container de mensagens
  * @param {string} mensagem - Mensagem a exibir
-*/
+ */
 function erro(containerId, mensagem) {
   const $container = $(`#${containerId}`);
   $container

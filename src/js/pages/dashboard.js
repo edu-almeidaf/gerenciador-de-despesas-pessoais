@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import { Auth } from './auth.js';
-import { Usuario } from './usuario.js';
+import { Auth } from '../core/auth.js';
+import { Usuario } from '../modules/usuario.js';
 
 const API_URL = 'http://localhost:3001';
 const COTACAO_API = 'https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL';
@@ -262,3 +262,4 @@ export const Dashboard = {
 };
 
 $(document).ready(init);
+

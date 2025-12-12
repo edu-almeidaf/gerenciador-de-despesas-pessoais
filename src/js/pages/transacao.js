@@ -1,9 +1,9 @@
 import $ from 'jquery';
-import { Auth } from './auth.js';
-import { Feedback } from './feedback.js';
-import { Button } from './button.js';
-import { Input } from './input.js';
-import { Usuario } from './usuario.js';
+import { Auth } from '../core/auth.js';
+import { Feedback } from '../components/feedback.js';
+import { Button } from '../components/button.js';
+import { Input } from '../components/input.js';
+import { Usuario } from '../modules/usuario.js';
 
 const API_URL = 'http://localhost:3001';
 
@@ -16,7 +16,6 @@ const Patterns = {
   dataISO: /^\d{4}-\d{2}-\d{2}$/
 };
 
-// Estado do valor em centavos
 let centavosGlobal = 0;
 
 /**
@@ -507,3 +506,4 @@ export const Transacao = {
 };
 
 $(document).ready(init);
+

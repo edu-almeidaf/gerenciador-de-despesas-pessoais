@@ -1,11 +1,10 @@
 import $ from 'jquery';
-import { Auth } from './auth.js';
-import { Usuario } from './usuario.js';
+import { Auth } from '../core/auth.js';
+import { Usuario } from '../modules/usuario.js';
 
 const API_URL = 'http://localhost:3001';
 const ITENS_POR_PAGINA = 10;
 
-// Estado da aplicação
 let todasTransacoes = [];
 let transacoesFiltradas = [];
 let paginaAtual = 1;
@@ -512,3 +511,4 @@ export const Transacoes = {
 };
 
 $(document).ready(init);
+

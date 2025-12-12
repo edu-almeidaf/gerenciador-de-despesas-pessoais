@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { Auth } from './auth.js';
+import { Auth } from '../core/auth.js';
 
 /**
  * Extrai as iniciais do nome do usuário

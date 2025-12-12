@@ -129,3 +129,4 @@ export const Calendar = {
 };
 
 document.addEventListener('DOMContentLoaded', init);
+

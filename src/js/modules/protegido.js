@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { Auth } from './auth.js';
+import { Auth } from '../core/auth.js';
 import { Usuario } from './usuario.js';
 
 /**
@@ -27,3 +27,4 @@ export const Protegido = {
 };
 
 $(document).ready(init);
+
