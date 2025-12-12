@@ -98,13 +98,24 @@ function mostrarNotificacao(mensagem, tipo) {
 }
 
 /**
+ * Converte string de data ISO para Date no fuso horário local
+ * Evita problemas de timezone ao parsear datas YYYY-MM-DD
+ * @param {string} dataISO - Data no formato YYYY-MM-DD
+ * @returns {Date}
+ */
+function parsearDataLocal(dataISO) {
+  const [ano, mes, dia] = dataISO.split('-').map(Number);
+  return new Date(ano, mes - 1, dia);
+}
+
+/**
  * Filtra transação por período
  * @param {string} dataTransacao - Data da transação (YYYY-MM-DD)
  * @param {string} periodo - Período selecionado
  * @returns {boolean}
  */
 function filtrarPorPeriodo(dataTransacao, periodo) {
-  const data = new Date(dataTransacao);
+  const data = parsearDataLocal(dataTransacao);
   const hoje = new Date();
   const mesAtual = hoje.getMonth();
   const anoAtual = hoje.getFullYear();
@@ -122,6 +133,7 @@ function filtrarPorPeriodo(dataTransacao, periodo) {
   case 'ultimos-3-meses': {
     const tresMesesAtras = new Date(hoje);
     tresMesesAtras.setMonth(tresMesesAtras.getMonth() - 3);
+    tresMesesAtras.setHours(0, 0, 0, 0);
     return data >= tresMesesAtras;
   }
 

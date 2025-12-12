@@ -97,6 +97,17 @@ function validarValor(valorStr) {
 }
 
 /**
+ * Converte string de data ISO para Date no fuso horário local
+ * Evita problemas de timezone ao parsear datas YYYY-MM-DD
+ * @param {string} dataISO - Data no formato YYYY-MM-DD
+ * @returns {Date}
+ */
+function parsearDataLocal(dataISO) {
+  const [ano, mes, dia] = dataISO.split('-').map(Number);
+  return new Date(ano, mes - 1, dia);
+}
+
+/**
  * Valida a data da transação
  * @param {string} data - Data no formato ISO (YYYY-MM-DD)
  * @returns {Object} - { valido: boolean, mensagem: string }
@@ -110,7 +121,7 @@ function validarData(data) {
     return { valido: false, mensagem: 'Formato de data inválido' };
   }
 
-  const dataObj = new Date(data);
+  const dataObj = parsearDataLocal(data);
   if (isNaN(dataObj.getTime())) {
     return { valido: false, mensagem: 'Data inválida' };
   }
