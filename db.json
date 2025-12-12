@@ -11,6 +11,18 @@
       "email": "eduardo@teste.com",
       "senha": "teste123",
       "id": 2
+    },
+    {
+      "nome": "Eduardo de Almeida",
+      "email": "teste2@teste.com",
+      "senha": "teste123",
+      "id": 3
+    },
+    {
+      "nome": "Eduardo teste",
+      "email": "teste@teste.com",
+      "senha": "teste123",
+      "id": 4
     }
   ],
   "transacoes": [

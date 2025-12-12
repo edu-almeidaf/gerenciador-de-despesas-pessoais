@@ -1,5 +1,7 @@
 import $ from 'jquery';
-import { Auth, Feedback, Button } from './auth.js';
+import { Auth } from './auth.js';
+import { Feedback } from './feedback.js';
+import { Button } from './button.js';
 
 const API_URL = 'http://localhost:3001';
 

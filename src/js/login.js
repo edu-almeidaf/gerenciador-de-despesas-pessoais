@@ -1,125 +1,157 @@
 import $ from 'jquery';
-import { Auth, Feedback, Button } from './auth.js';
+import { Auth } from './auth.js';
+import { Feedback } from './feedback.js';
+import { Button } from './button.js';
 import { Validacao } from './validacao.js';
+import { Input } from './input.js';
 
-$(document).ready(function() {
-  // Redireciona se já estiver logado
-  Auth.redirecionarSeLogado();
+const estadoValidacao = {
+  email: false
+};
 
-  // Verifica campos obrigatórios para habilitar botão
-  function verificarCamposObrigatorios() {
-    const email = $('#email').val().trim();
-    const senha = $('#password').val();
+/**
+ * Verifica se todos os campos obrigatórios estão preenchidos
+ */
+function verificarCamposObrigatorios() {
+  const email = $('#email').val().trim();
+  const senha = $('#password').val();
 
-    const todosPreenchidos = email.length > 0 && senha.length > 0;
+  const todosPreenchidos = email.length > 0 && senha.length > 0;
 
-    $('#btn-submit').prop('disabled', !todosPreenchidos);
+  $('#btn-submit').prop('disabled', !todosPreenchidos);
+}
+
+/**
+ * Valida os campos do formulário de login
+ * @returns {Object|null} - Dados validados ou null se inválido
+ */
+function validarFormulario() {
+  const email = $('#email').val().trim();
+  const senha = $('#password').val();
+
+  // Limpa mensagens anteriores
+  Feedback.limpar('mensagem-feedback');
+  $('.input').removeClass('input-error');
+
+  // Validação do email
+  const emailValidacao = Validacao.validarEmail(email);
+  if (!emailValidacao.valido) {
+    Feedback.erro('mensagem-feedback', emailValidacao.mensagem);
+    $('#email').addClass('input-error').focus();
+    return null;
   }
 
-  // Monitora mudanças nos campos
+  // Validação de senha (básica para login - só verifica se foi preenchida)
+  if (!senha || senha.length < 1) {
+    Feedback.erro('mensagem-feedback', 'Digite sua senha');
+    $('#password').addClass('input-error').focus();
+    return null;
+  }
+
+  return { email, senha };
+}
+
+/**
+ * Trata sucesso no login
+ * @param {Object} usuario - Dados do usuário logado
+ */
+function handleLoginSucesso(usuario) {
+  Feedback.sucesso('mensagem-feedback', `Bem-vindo(a), ${usuario.nome}!`);
+
+  // Animação de saída e redirecionamento
+  setTimeout(function() {
+    $('main').addClass('animate-exit');
+    setTimeout(function() {
+      window.location.href = './dashboard.html';
+    }, 300);
+  }, 800);
+}
+
+/**
+ * Trata erro no login
+ * @param {Error} error - Erro ocorrido
+ * @param {jQuery} $form - Elemento do formulário
+ * @param {jQuery} $btnSubmit - Elemento do botão de submit
+ */
+function handleLoginErro(error, $form, $btnSubmit) {
+  let mensagem = 'Erro ao fazer login. Tente novamente.';
+
+  switch (error.message) {
+  case 'Usuário não encontrado':
+    mensagem = 'E-mail não cadastrado. Verifique ou crie uma conta.';
+    $('#email').addClass('input-error');
+    break;
+
+  case 'Senha incorreta':
+    mensagem = 'Senha incorreta. Tente novamente.';
+    $('#password').addClass('input-error').val('').focus();
+    break;
+
+  case 'error':
+    mensagem = 'Erro de conexão. Verifique se o servidor está rodando.';
+    break;
+  }
+
+  Feedback.erro('mensagem-feedback', mensagem);
+  Button.restaurar($btnSubmit);
+
+  // Shake animation no formulário
+  $form.addClass('animate-shake');
+  setTimeout(function() {
+    $form.removeClass('animate-shake');
+  }, 500);
+}
+
+/**
+ * Handler para submit do formulário de login
+ * @param {Event} e - Evento de submit
+ */
+async function handleSubmitLogin(e) {
+  e.preventDefault();
+
+  const $form = $(this);
+  const $btnSubmit = $form.find('button[type="submit"]');
+
+  const dadosValidados = validarFormulario();
+  if (!dadosValidados) return;
+
+  Button.loading($btnSubmit, 'Entrar');
+
+  try {
+    const usuario = await Auth.login(dadosValidados.email, dadosValidados.senha);
+    handleLoginSucesso(usuario);
+  } catch (error) {
+    handleLoginErro(error, $form, $btnSubmit);
+  }
+}
+
+/**
+ * Configura os event listeners da página
+ */
+function configurarEventListeners() {
   $('#email, #password').on('input', verificarCamposObrigatorios);
 
-  // Validação em tempo real do email
-  $('#email').on('blur', function() {
-    const email = $(this).val();
-    const $input = $(this);
-    const $erroSpan = $('#email-erro');
+  // Validação do email
+  Input.configurarValidacao(
+    $('#email'),
+    Validacao.validarEmail,
+    estadoValidacao,
+    'email'
+  );
 
-    if (email.length > 0) {
-      const resultado = Validacao.validarEmail(email);
-
-      if (!resultado.valido) {
-        $input.addClass('input-error').removeClass('input-success');
-        if ($erroSpan.length) {
-          $erroSpan.text(resultado.mensagem).removeClass('hidden');
-        }
-      } else {
-        $input.removeClass('input-error').addClass('input-success');
-        if ($erroSpan.length) {
-          $erroSpan.addClass('hidden');
-        }
-      }
-    }
-  });
-
-  // Remove erro ao digitar
-  $('#email').on('input', function() {
-    $(this).removeClass('input-error').removeClass('input-success');
-    $('#email-erro').addClass('hidden');
-  });
-
-  // Handler do formulário de login
-  $('#form-login').on('submit', function(e) {
-    e.preventDefault();
-
-    const $form = $(this);
-    const $btnSubmit = $form.find('button[type="submit"]');
-    const email = $('#email').val().trim();
-    const senha = $('#password').val();
-
-    // Limpa mensagens anteriores
-    Feedback.limpar('mensagem-feedback');
-    $('.input').removeClass('input-error');
-
-    // Validação com regex
-    const emailValidacao = Validacao.validarEmail(email);
-    if (!emailValidacao.valido) {
-      Feedback.erro('mensagem-feedback', emailValidacao.mensagem);
-      $('#email').addClass('input-error').focus();
-      return;
-    }
-
-    // Validação de senha (básica para login - só verifica se foi preenchida)
-    if (!senha || senha.length < 1) {
-      Feedback.erro('mensagem-feedback', 'Digite sua senha');
-      $('#password').addClass('input-error').focus();
-      return;
-    }
-
-    // Estado de loading
-    Button.loading($btnSubmit, 'Entrar');
-
-    // Tenta fazer login
-    Auth.login(email, senha)
-      .then(function(usuario) {
-        Feedback.sucesso('mensagem-feedback', `Bem-vindo(a), ${usuario.nome}!`);
-
-        // Animação de saída e redirecionamento
-        setTimeout(function() {
-          $('main').addClass('animate-exit');
-          setTimeout(function() {
-            window.location.href = './dashboard.html';
-          }, 300);
-        }, 800);
-      })
-      .catch(function(error) {
-        let mensagem = 'Erro ao fazer login. Tente novamente.';
-
-        if (error.message === 'Usuário não encontrado') {
-          mensagem = 'E-mail não cadastrado. Verifique ou crie uma conta.';
-          $('#email').addClass('input-error');
-        } else if (error.message === 'Senha incorreta') {
-          mensagem = 'Senha incorreta. Tente novamente.';
-          $('#password').addClass('input-error').val('').focus();
-        } else if (error.statusText === 'error') {
-          mensagem = 'Erro de conexão. Verifique se o servidor está rodando.';
-        }
-
-        Feedback.erro('mensagem-feedback', mensagem);
-        Button.restaurar($btnSubmit);
-
-        // Shake animation no formulário
-        $form.addClass('animate-shake');
-        setTimeout(function() {
-          $form.removeClass('animate-shake');
-        }, 500);
-      });
-  });
+  // Submit do formulário
+  $('#form-login').on('submit', handleSubmitLogin);
 
   // Efeito de foco nos inputs
-  $('.input').on('focus', function() {
-    $(this).closest('.form-control').addClass('scale-[1.01]');
-  }).on('blur', function() {
-    $(this).closest('.form-control').removeClass('scale-[1.01]');
-  });
-});
+  Input.configurarEfeitoFoco('.input');
+}
+
+/**
+ * Inicializa a página de login
+ */
+function init() {
+  Auth.redirecionarSeLogado();
+  configurarEventListeners();
+}
+
+$(document).ready(init);
