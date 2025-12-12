@@ -2,6 +2,8 @@ import $ from 'jquery';
 import { Auth } from './auth.js';
 import { Feedback } from './feedback.js';
 import { Button } from './button.js';
+import { Input } from './input.js';
+import { Usuario } from './usuario.js';
 
 const API_URL = 'http://localhost:3001';
 
@@ -9,279 +11,13 @@ const API_URL = 'http://localhost:3001';
  * Padrões REGEX para validação
  */
 const Patterns = {
-  // Descrição: letras, números, espaços, acentos e pontuação básica
   descricao: /^[a-zA-ZÀ-ÿ0-9\s.,!?()-]+$/,
-  // Valor monetário formatado: 1.234,56
   valorMonetario: /^\d{1,3}(\.\d{3})*(,\d{2})?$/,
-  // Data no formato ISO: YYYY-MM-DD
   dataISO: /^\d{4}-\d{2}-\d{2}$/
 };
 
-// Variável global para armazenar os centavos (usada na verificação)
+// Estado do valor em centavos
 let centavosGlobal = 0;
-
-$(document).ready(function() {
-  // Verifica autenticação
-  const usuario = Auth.verificarAutenticacao(true);
-
-  if (!usuario) {
-    return;
-  }
-
-  // Inicializa máscara monetária no campo de valor
-  inicializarMascaraMonetaria();
-
-  // Inicializa data com a data atual
-  inicializarDataAtual();
-
-  // Inicializa validações em tempo real
-  inicializarValidacoesTempoReal();
-
-  // Verifica campos obrigatórios para habilitar botão
-  verificarCamposObrigatorios();
-
-  // Monitora mudanças nos campos
-  $('#descricao').on('input', verificarCamposObrigatorios);
-  $('#data-input').on('change', verificarCamposObrigatorios);
-
-  // Handler do formulário
-  $('#form-transacao').on('submit', function(e) {
-    e.preventDefault();
-    salvarTransacao(usuario.id);
-  });
-
-  // Atualiza avatar
-  const iniciais = usuario.nome
-    .split(' ')
-    .map(n => n[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
-
-  $('.avatar-inicial').text(iniciais);
-  $('#usuario-email').text(usuario.email);
-
-  // Handler de logout
-  $('#btn-logout').on('click', function(e) {
-    e.preventDefault();
-    $('main').addClass('animate-exit');
-    setTimeout(function() {
-      Auth.logout();
-    }, 300);
-  });
-
-});
-
-/**
- * Exibe erro inline abaixo do input
- */
-function mostrarErroInline($input, mensagem) {
-  const inputId = $input.attr('id');
-  let $erro = $(`#${inputId}-erro`);
-
-  if (!$erro.length) {
-    $erro = $(`<span id="${inputId}-erro" class="text-xs text-red-500 mt-1"></span>`);
-    $input.closest('.form-control').append($erro);
-  }
-
-  $erro.text(mensagem).removeClass('hidden');
-  $input.addClass('input-error').removeClass('input-success');
-}
-
-/**
- * Remove erro inline
- */
-function limparErroInline($input) {
-  const inputId = $input.attr('id');
-  $(`#${inputId}-erro`).addClass('hidden');
-  $input.removeClass('input-error');
-}
-
-/**
- * Marca campo como válido
- */
-function marcarValido($input) {
-  limparErroInline($input);
-  $input.addClass('input-success');
-}
-
-/**
- * Inicializa validações em tempo real nos campos
- */
-function inicializarValidacoesTempoReal() {
-  // ========== VALIDAÇÃO DA DESCRIÇÃO ==========
-  $('#descricao').on('blur', function() {
-    const descricao = $(this).val().trim();
-    const $input = $(this);
-
-    if (descricao.length > 0) {
-      const resultado = validarDescricao(descricao);
-
-      if (!resultado.valido) {
-        mostrarErroInline($input, resultado.mensagem);
-      } else {
-        marcarValido($input);
-      }
-    }
-  });
-
-  $('#descricao').on('input', function() {
-    limparErroInline($(this));
-  });
-
-  // ========== VALIDAÇÃO DO VALOR ==========
-  $('#valor').on('blur', function() {
-    const valorStr = $(this).val();
-    const $input = $(this);
-
-    if (valorStr.length > 0) {
-      const resultado = validarValor(valorStr);
-
-      if (!resultado.valido) {
-        mostrarErroInline($input, resultado.mensagem);
-      } else {
-        marcarValido($input);
-      }
-    }
-  });
-
-  // ========== VALIDAÇÃO DA CATEGORIA ==========
-  $('#categoria').on('change', function() {
-    const categoria = $(this).val();
-    const $input = $(this);
-
-    if (categoria) {
-      marcarValido($input);
-    }
-  });
-}
-
-/**
- * Verifica se todos os campos obrigatórios estão preenchidos
- */
-function verificarCamposObrigatorios() {
-  const descricao = $('#descricao').val().trim();
-  const data = $('#data-input').val();
-
-  const todosPreenchidos = descricao.length >= 3 &&
-                           centavosGlobal > 0 &&
-                           data.length > 0;
-
-  $('#btn-submit').prop('disabled', !todosPreenchidos);
-}
-
-/**
- * Inicializa o campo de valor com comportamento estilo app de banco
- * Digita da direita para esquerda, sempre com 2 casas decimais
- */
-function inicializarMascaraMonetaria() {
-  const $valor = $('#valor');
-
-  // Inicia com 0,00
-  $valor.val(formatarCentavos(centavosGlobal));
-
-  // Formata centavos para exibição (ex: 159 -> "1,59")
-  function formatarCentavos(cents) {
-    const valor = (cents / 100).toFixed(2);
-    // Formata com separador de milhar brasileiro
-    return valor.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  }
-
-  // Captura teclas para controle total
-  $valor.on('keydown', function(e) {
-    const key = e.key;
-
-    // Permite: Tab, Enter, setas (navegação)
-    if (['Tab', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(key)) {
-      return true;
-    }
-
-    // Previne comportamento padrão
-    e.preventDefault();
-
-    // Backspace - remove último dígito
-    if (key === 'Backspace') {
-      centavosGlobal = Math.floor(centavosGlobal / 10);
-      $valor.val(formatarCentavos(centavosGlobal));
-      atualizarFeedback();
-      return false;
-    }
-
-    // Delete - zera o valor
-    if (key === 'Delete') {
-      centavosGlobal = 0;
-      $valor.val(formatarCentavos(centavosGlobal));
-      atualizarFeedback();
-      return false;
-    }
-
-    // Apenas números (0-9)
-    if (/^[0-9]$/.test(key)) {
-      // Limite máximo (999.999.999,99 = 99999999999 centavos)
-      if (centavosGlobal > 9999999999) {
-        return false;
-      }
-
-      // Adiciona dígito à direita
-      centavosGlobal = centavosGlobal * 10 + parseInt(key);
-      $valor.val(formatarCentavos(centavosGlobal));
-      atualizarFeedback();
-      return false;
-    }
-
-    return false;
-  });
-
-  // Previne colar texto
-  $valor.on('paste', function(e) {
-    e.preventDefault();
-    const pastedText = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
-    // Tenta extrair apenas números
-    const numeros = pastedText.replace(/\D/g, '');
-    if (numeros) {
-      centavosGlobal = parseInt(numeros) || 0;
-      // Limita ao máximo
-      if (centavosGlobal > 99999999999) centavosGlobal = 99999999999;
-      $valor.val(formatarCentavos(centavosGlobal));
-      atualizarFeedback();
-    }
-  });
-
-  // Atualiza feedback visual
-  function atualizarFeedback() {
-    limparErroInline($valor);
-    if (centavosGlobal > 0) {
-      $valor.removeClass('input-error').addClass('input-success');
-    } else {
-      $valor.removeClass('input-success').removeClass('input-error');
-    }
-    // Verifica campos obrigatórios após mudança no valor
-    verificarCamposObrigatorios();
-  }
-
-  // Ao focar, posiciona cursor no final
-  $valor.on('focus', function() {
-    const len = $(this).val().length;
-    this.setSelectionRange(len, len);
-  });
-
-  // Expõe função para obter valor em centavos (para validação)
-  $valor.data('getCentavos', function() {
-    return centavosGlobal;
-  });
-}
-
-/**
- * Inicializa o campo de data com a data atual
- */
-function inicializarDataAtual() {
-  const hoje = new Date();
-  const dataFormatada = hoje.toLocaleDateString('pt-BR');
-
-  $('#data-display').text(dataFormatada).removeClass('text-zinc-400').addClass('text-amber-900');
-  $('#data-input').val(hoje.toISOString().split('T')[0]);
-  $('#btn-limpar').removeClass('hidden');
-}
 
 /**
  * Converte valor formatado (1.234,56) para número (1234.56)
@@ -290,8 +26,17 @@ function inicializarDataAtual() {
  */
 function converterParaNumero(valorFormatado) {
   if (!valorFormatado) return 0;
-  // Remove pontos de milhar e troca vírgula por ponto
   return parseFloat(valorFormatado.replace(/\./g, '').replace(',', '.')) || 0;
+}
+
+/**
+ * Formata centavos para exibição (ex: 159 -> "1,59")
+ * @param {number} cents - Valor em centavos
+ * @returns {string} - Valor formatado
+ */
+function formatarCentavos(cents) {
+  const valor = (cents / 100).toFixed(2);
+  return valor.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
 /**
@@ -345,7 +90,6 @@ function validarValor(valorStr) {
     return { valido: false, mensagem: 'O valor máximo é R$ 999.999.999,99', valor: 0 };
   }
 
-  // Valida formato com regex (opcional, já que a máscara garante)
   if (valorStr.includes(',') && !Patterns.valorMonetario.test(valorStr)) {
     return { valido: false, mensagem: 'Formato de valor inválido', valor: 0 };
   }
@@ -372,14 +116,12 @@ function validarData(data) {
     return { valido: false, mensagem: 'Data inválida' };
   }
 
-  // Não permite datas futuras muito distantes (mais de 1 ano)
   const umAnoFuturo = new Date();
   umAnoFuturo.setFullYear(umAnoFuturo.getFullYear() + 1);
   if (dataObj > umAnoFuturo) {
     return { valido: false, mensagem: 'A data não pode ser superior a 1 ano no futuro' };
   }
 
-  // Não permite datas muito antigas (mais de 10 anos)
   const dezAnosAtras = new Date();
   dezAnosAtras.setFullYear(dezAnosAtras.getFullYear() - 10);
   if (dataObj < dezAnosAtras) {
@@ -418,48 +160,27 @@ function validarFormulario() {
   const tipo = $('input[name="tipo"]:checked').attr('aria-label');
   const categoria = $('#categoria').val() || 'Outros';
 
-  // Limpa erros anteriores
   $('.input, .select').removeClass('input-error').removeClass('input-success');
   Feedback.limpar('mensagem-feedback');
 
-  // Validação da descrição
   const descricaoValidacao = validarDescricao(descricao);
   if (!descricaoValidacao.valido) {
-    return {
-      valido: false,
-      mensagem: descricaoValidacao.mensagem,
-      campo: '#descricao'
-    };
+    return { valido: false, mensagem: descricaoValidacao.mensagem, campo: '#descricao' };
   }
 
-  // Validação do valor
   const valorValidacao = validarValor(valorStr);
   if (!valorValidacao.valido) {
-    return {
-      valido: false,
-      mensagem: valorValidacao.mensagem,
-      campo: '#valor'
-    };
+    return { valido: false, mensagem: valorValidacao.mensagem, campo: '#valor' };
   }
 
-  // Validação da data
   const dataValidacao = validarData(data);
   if (!dataValidacao.valido) {
-    return {
-      valido: false,
-      mensagem: dataValidacao.mensagem,
-      campo: null
-    };
+    return { valido: false, mensagem: dataValidacao.mensagem, campo: null };
   }
 
-  // Validação do tipo
   const tipoValidacao = validarTipo(tipo);
   if (!tipoValidacao.valido) {
-    return {
-      valido: false,
-      mensagem: tipoValidacao.mensagem,
-      campo: null
-    };
+    return { valido: false, mensagem: tipoValidacao.mensagem, campo: null };
   }
 
   return {
@@ -476,10 +197,224 @@ function validarFormulario() {
 }
 
 /**
+ * Verifica se todos os campos obrigatórios estão preenchidos
+ */
+function verificarCamposObrigatorios() {
+  const descricao = $('#descricao').val().trim();
+  const data = $('#data-input').val();
+
+  const todosPreenchidos = descricao.length >= 3 &&
+                           centavosGlobal > 0 &&
+                           data.length > 0;
+
+  $('#btn-submit').prop('disabled', !todosPreenchidos);
+}
+
+/**
+ * Atualiza feedback visual do campo de valor
+ * @param {jQuery} $valor - Elemento do campo de valor
+ */
+function atualizarFeedbackValor($valor) {
+  Input.limparErro($valor);
+  if (centavosGlobal > 0) {
+    $valor.removeClass('input-error').addClass('input-success');
+  } else {
+    $valor.removeClass('input-success').removeClass('input-error');
+  }
+  verificarCamposObrigatorios();
+}
+
+/**
+ * Inicializa o campo de valor com comportamento estilo app de banco
+ */
+function inicializarMascaraMonetaria() {
+  const $valor = $('#valor');
+
+  $valor.val(formatarCentavos(centavosGlobal));
+
+  $valor.on('keydown', function(e) {
+    const key = e.key;
+
+    if (['Tab', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(key)) {
+      return true;
+    }
+
+    e.preventDefault();
+
+    if (key === 'Backspace') {
+      centavosGlobal = Math.floor(centavosGlobal / 10);
+      $valor.val(formatarCentavos(centavosGlobal));
+      atualizarFeedbackValor($valor);
+      return false;
+    }
+
+    if (key === 'Delete') {
+      centavosGlobal = 0;
+      $valor.val(formatarCentavos(centavosGlobal));
+      atualizarFeedbackValor($valor);
+      return false;
+    }
+
+    if (/^[0-9]$/.test(key)) {
+      if (centavosGlobal > 9999999999) {
+        return false;
+      }
+
+      centavosGlobal = centavosGlobal * 10 + parseInt(key);
+      $valor.val(formatarCentavos(centavosGlobal));
+      atualizarFeedbackValor($valor);
+      return false;
+    }
+
+    return false;
+  });
+
+  $valor.on('paste', function(e) {
+    e.preventDefault();
+    const pastedText = (e.originalEvent.clipboardData || window.clipboardData).getData('text');
+    const numeros = pastedText.replace(/\D/g, '');
+    if (numeros) {
+      centavosGlobal = parseInt(numeros) || 0;
+      if (centavosGlobal > 99999999999) centavosGlobal = 99999999999;
+      $valor.val(formatarCentavos(centavosGlobal));
+      atualizarFeedbackValor($valor);
+    }
+  });
+
+  $valor.on('focus', function() {
+    const len = $(this).val().length;
+    this.setSelectionRange(len, len);
+  });
+
+  $valor.data('getCentavos', function() {
+    return centavosGlobal;
+  });
+}
+
+/**
+ * Inicializa o campo de data com a data atual
+ */
+function inicializarDataAtual() {
+  const hoje = new Date();
+  const dataFormatada = hoje.toLocaleDateString('pt-BR');
+
+  $('#data-display').text(dataFormatada).removeClass('text-zinc-400').addClass('text-amber-900');
+  $('#data-input').val(hoje.toISOString().split('T')[0]);
+  $('#btn-limpar').removeClass('hidden');
+}
+
+/**
+ * Handler para blur da descrição
+ */
+function handleDescricaoBlur() {
+  const descricao = $(this).val().trim();
+  const $input = $(this);
+
+  if (descricao.length > 0) {
+    const resultado = validarDescricao(descricao);
+
+    if (!resultado.valido) {
+      Input.mostrarErro($input, resultado.mensagem);
+    } else {
+      Input.marcarValido($input);
+    }
+  }
+}
+
+/**
+ * Handler para input da descrição
+ */
+function handleDescricaoInput() {
+  Input.limparErro($(this));
+}
+
+/**
+ * Handler para blur do valor
+ */
+function handleValorBlur() {
+  const valorStr = $(this).val();
+  const $input = $(this);
+
+  if (valorStr.length > 0) {
+    const resultado = validarValor(valorStr);
+
+    if (!resultado.valido) {
+      Input.mostrarErro($input, resultado.mensagem);
+    } else {
+      Input.marcarValido($input);
+    }
+  }
+}
+
+/**
+ * Handler para change da categoria
+ */
+function handleCategoriaChange() {
+  const categoria = $(this).val();
+
+  if (categoria) {
+    Input.marcarValido($(this));
+  }
+}
+
+/**
+ * Configura validações em tempo real nos campos
+ */
+function configurarValidacoesTempoReal() {
+  $('#descricao').on('blur', handleDescricaoBlur);
+  $('#descricao').on('input', handleDescricaoInput);
+  $('#valor').on('blur', handleValorBlur);
+  $('#categoria').on('change', handleCategoriaChange);
+}
+
+/**
+ * Exibe animação de shake no formulário
+ */
+function exibirShakeFormulario() {
+  $('#form-transacao').addClass('animate-shake');
+  setTimeout(function() {
+    $('#form-transacao').removeClass('animate-shake');
+  }, 500);
+}
+
+/**
+ * Trata sucesso ao salvar transação
+ * @param {Object} transacao - Dados da transação salva
+ */
+function handleSalvarSucesso(transacao) {
+  const tipoTexto = transacao.tipo === 'receita' ? 'Receita' : 'Despesa';
+  Feedback.sucesso('mensagem-feedback', `${tipoTexto} adicionada com sucesso!`);
+
+  setTimeout(function() {
+    $('main').addClass('animate-exit');
+    setTimeout(function() {
+      window.location.href = './todas-transacoes.html';
+    }, 300);
+  }, 1000);
+}
+
+/**
+ * Trata erro ao salvar transação
+ * @param {Error} error - Erro ocorrido
+ * @param {jQuery} $btnSubmit - Botão de submit
+ */
+function handleSalvarErro(error, $btnSubmit) {
+  console.error('Erro ao salvar transação:', error);
+
+  let mensagem = 'Erro ao salvar transação. Tente novamente.';
+  if (error.statusText === 'error') {
+    mensagem = 'Erro de conexão. Verifique se o servidor está rodando.';
+  }
+
+  Feedback.erro('mensagem-feedback', mensagem);
+  Button.restaurar($btnSubmit);
+}
+
+/**
  * Salva a transação no banco de dados
  * @param {number} usuarioId - ID do usuário logado
  */
-function salvarTransacao(usuarioId) {
+async function salvarTransacao(usuarioId) {
   const validacao = validarFormulario();
 
   if (!validacao.valido) {
@@ -487,19 +422,13 @@ function salvarTransacao(usuarioId) {
     if (validacao.campo) {
       $(validacao.campo).addClass('input-error').focus();
     }
-
-    // Shake animation
-    $('#form-transacao').addClass('animate-shake');
-    setTimeout(function() {
-      $('#form-transacao').removeClass('animate-shake');
-    }, 500);
+    exibirShakeFormulario();
     return;
   }
 
   const $btnSubmit = $('#form-transacao button[type="submit"]');
   Button.loading($btnSubmit, 'Salvar transação');
 
-  // Prepara dados para enviar
   const transacao = {
     usuarioId: usuarioId,
     descricao: validacao.dados.descricao,
@@ -509,35 +438,72 @@ function salvarTransacao(usuarioId) {
     data: validacao.dados.data
   };
 
-  // Envia para a API
-  $.ajax({
-    url: `${API_URL}/transacoes`,
-    method: 'POST',
-    contentType: 'application/json',
-    data: JSON.stringify(transacao),
-    dataType: 'json'
-  })
-    .then(function() {
-      const tipoTexto = transacao.tipo === 'receita' ? 'Receita' : 'Despesa';
-      Feedback.sucesso('mensagem-feedback', `${tipoTexto} adicionada com sucesso!`);
-
-      // Redireciona para todas as transações após sucesso
-      setTimeout(function() {
-        $('main').addClass('animate-exit');
-        setTimeout(function() {
-          window.location.href = './todas-transacoes.html';
-        }, 300);
-      }, 1000);
-    })
-    .catch(function(error) {
-      console.error('Erro ao salvar transação:', error);
-
-      let mensagem = 'Erro ao salvar transação. Tente novamente.';
-      if (error.statusText === 'error') {
-        mensagem = 'Erro de conexão. Verifique se o servidor está rodando.';
-      }
-
-      Feedback.erro('mensagem-feedback', mensagem);
-      Button.restaurar($btnSubmit);
+  try {
+    await $.ajax({
+      url: `${API_URL}/transacoes`,
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(transacao),
+      dataType: 'json'
     });
+
+    handleSalvarSucesso(transacao);
+  } catch (error) {
+    handleSalvarErro(error, $btnSubmit);
+  }
 }
+
+/**
+ * Handler para submit do formulário
+ * @param {Event} e - Evento de submit
+ * @param {number} usuarioId - ID do usuário logado
+ */
+function handleSubmitTransacao(e, usuarioId) {
+  e.preventDefault();
+  salvarTransacao(usuarioId);
+}
+
+/**
+ * Configura os event listeners da página
+ * @param {Object} usuario - Dados do usuário logado
+ */
+function configurarEventListeners(usuario) {
+  $('#descricao').on('input', verificarCamposObrigatorios);
+  $('#data-input').on('change', verificarCamposObrigatorios);
+
+  $('#form-transacao').on('submit', function(e) {
+    handleSubmitTransacao(e, usuario.id);
+  });
+
+  Usuario.configurarLogout();
+}
+
+/**
+ * Inicializa a página de adicionar transação
+ */
+function init() {
+  const usuario = Auth.verificarAutenticacao(true);
+
+  if (!usuario) return;
+
+  Usuario.atualizarUIUsuario(usuario);
+
+  inicializarMascaraMonetaria();
+  inicializarDataAtual();
+  configurarValidacoesTempoReal();
+  verificarCamposObrigatorios();
+  configurarEventListeners(usuario);
+}
+
+/**
+ * Módulo de Transação
+ */
+export const Transacao = {
+  init,
+  validarDescricao,
+  validarValor,
+  validarData,
+  validarTipo
+};
+
+$(document).ready(init);

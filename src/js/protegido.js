@@ -1,43 +1,29 @@
 import $ from 'jquery';
 import { Auth } from './auth.js';
+import { Usuario } from './usuario.js';
 
 /**
- * Script para páginas protegidas (que requerem autenticação)
- * Verifica se o usuário está logado e atualiza elementos comuns
+ * Inicializa a página protegida
+ * Verifica autenticação e atualiza elementos comuns
+ * @returns {Object|null} - Dados do usuário ou null se não autenticado
  */
-$(document).ready(function() {
-  // Verifica autenticação - redireciona se não logado
+function init() {
   const usuario = Auth.verificarAutenticacao(true);
 
-  if (!usuario) {
-    return; // Vai redirecionar para login
-  }
+  if (!usuario) return null;
 
-  // Atualiza iniciais do avatar em todas as páginas
-  const iniciais = usuario.nome
-    .split(' ')
-    .map(n => n[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
+  Usuario.atualizarUIUsuario(usuario);
+  Usuario.configurarLogout();
 
-  $('.avatar-inicial').text(iniciais);
+  return usuario;
+}
 
-  // Se houver dropdown de usuário, atualiza o email
-  if ($('#usuario-email').length) {
-    $('#usuario-email').text(usuario.email);
-  }
+/**
+ * Módulo para páginas protegidas
+ * Gerencia autenticação e elementos comuns de UI
+ */
+export const Protegido = {
+  init
+};
 
-  // Handler de logout (se existir na página)
-  $('#btn-logout').on('click', function(e) {
-    e.preventDefault();
-
-    // Animação de saída
-    $('main').addClass('animate-exit');
-
-    setTimeout(function() {
-      Auth.logout();
-    }, 300);
-  });
-});
-
+$(document).ready(init);

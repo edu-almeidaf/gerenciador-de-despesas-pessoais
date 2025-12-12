@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { Auth } from './auth.js';
+import { Usuario } from './usuario.js';
 
 const API_URL = 'http://localhost:3001';
 const COTACAO_API = 'https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL';
@@ -14,33 +15,6 @@ function formatarMoeda(valor) {
     style: 'currency',
     currency: 'BRL'
   });
-}
-
-/**
- * Extrai as iniciais do nome do usuário
- * @param {string} nome - Nome completo do usuário
- * @returns {string} - Iniciais em maiúsculo (máximo 2 letras)
- */
-function extrairIniciais(nome) {
-  return nome
-    .split(' ')
-    .map(n => n[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
-}
-
-/**
- * Atualiza as informações do usuário na interface
- * @param {Object} usuario - Dados do usuário logado
- */
-function atualizarInfoUsuario(usuario) {
-  const primeiroNome = usuario.nome.split(' ')[0];
-  const iniciais = extrairIniciais(usuario.nome);
-
-  $('#usuario-nome').text(primeiroNome);
-  $('#usuario-email').text(usuario.email);
-  $('.avatar-inicial').text(iniciais);
 }
 
 /**
@@ -265,27 +239,6 @@ async function carregarCotacoes() {
 }
 
 /**
- * Handler para logout do usuário
- * @param {Event} e - Evento de click
- */
-function handleLogout(e) {
-  e.preventDefault();
-
-  $('main').addClass('animate-exit');
-
-  setTimeout(function() {
-    Auth.logout();
-  }, 300);
-}
-
-/**
- * Configura os event listeners da página
- */
-function configurarEventListeners() {
-  $('#btn-logout').on('click', handleLogout);
-}
-
-/**
  * Inicializa o dashboard
  */
 function init() {
@@ -293,10 +246,10 @@ function init() {
 
   if (!usuario) return;
 
-  atualizarInfoUsuario(usuario);
+  Usuario.atualizarUIUsuario(usuario, { atualizarNome: true });
+  Usuario.configurarLogout();
   carregarTransacoes(usuario.id);
   carregarCotacoes();
-  configurarEventListeners();
 }
 
 /**
